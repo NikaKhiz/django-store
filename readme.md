@@ -8,6 +8,9 @@
 3. **localhost/order displays order creation view.**
 4. **localhost/order/id (1,2etc..) displays specific order details view.**
 
+<p>Also site has one superuser (user:admin, pass:admin123). you can visit localhost/admin and log in to dashboard.</p>
+
+
 ### Table of Contents
 
 - [Prerequisites](#prerequisites)
