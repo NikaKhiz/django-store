@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import HttpResponse
 
-# Create your views here.
+
+# Display provided products
+def product_index(request):
+    return HttpResponse('products list view')
+
+
+# Display a specific product detail 
+def product_show(request,id):
+    return HttpResponse(f'details for product - {id}', )
