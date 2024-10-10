@@ -13,3 +13,6 @@ def product_show(request,id):
 
 def categories(request):
     return HttpResponse('categories with parents')
+
+def products(request):
+    return HttpResponse('products with categories')
