@@ -9,3 +9,7 @@ def product_index(request):
 # Display a specific product detail 
 def product_show(request,id):
     return HttpResponse(f'details for product - {id}', )
+
+
+def categories(request):
+    return HttpResponse('categories with parents')
