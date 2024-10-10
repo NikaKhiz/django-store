@@ -1,15 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from .models import Category, Product
 
-# Display provided products
-def product_index(request):
-    return HttpResponse('products list view')
-
-
-# Display a specific product detail 
-def product_show(request,id):
-    return HttpResponse(f'details for product - {id}', )
-
 
 # Fetch all categories with its parents
 def categories(request):
@@ -48,3 +39,20 @@ def products(request):
     }
 
     return JsonResponse(context)
+
+
+# Display a specific product details 
+def product_show(request,id):
+    try:
+        product = Product.objects.get(id=id)
+        context = {
+            'id': product.id,
+            'name': product.name,
+            'description': product.description,
+            'price': product.price,
+            'image': f'http://localhost:8000{product.image.url}' if product.image else None,
+            'categories': [category.name for category in product.category.all()]
+        }
+        return JsonResponse(context)
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
