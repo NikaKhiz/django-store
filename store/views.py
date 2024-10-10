@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from .models import Category
+from .models import Category, Product
 
 # Display provided products
 def product_index(request):
@@ -9,6 +9,7 @@ def product_index(request):
 # Display a specific product detail 
 def product_show(request,id):
     return HttpResponse(f'details for product - {id}', )
+
 
 # Fetch all categories with its parents
 def categories(request):
@@ -27,5 +28,20 @@ def categories(request):
     return JsonResponse(context)
 
 
+# Fetch all products with its cateogies and display results
 def products(request):
-    return HttpResponse('products with categories')
+    products = Product.objects.prefetch_related('category').all()
+    context = {
+        'products': [
+            {
+                'id': product.id,
+                'name': product.name,
+                'description': product.description,
+                'price': product.price,
+                'image': f'http://localhost:8000{product.image.url}' if product.image else None,
+                'categories': [category.name for category in product.category.all()]
+            } for product in products
+        ]
+    }
+
+    return JsonResponse(context)
