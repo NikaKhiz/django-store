@@ -20,7 +20,10 @@ def categories(request):
             {
                 'id': category.id,
                 'name': category.name,
-                'parent': category.parent_category.name if category.parent_category else None
+                'parent': {
+                    'id': category.parent_category.id,
+                    'name': category.parent_category.name,
+                } if category.parent_category else None
             } for category in categories
         ]
     }
