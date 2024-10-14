@@ -1,25 +1,13 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from .models import Category, Product
+from django.shortcuts import render
 
 
-# Fetch all categories with its parents
 def categories(request):
-    
-    categories = Category.objects.select_related('parent_category').all()
-    context = {
-        'categories': [
-            {
-                'id': category.id,
-                'name': category.name,
-                'parent': {
-                    'id': category.parent_category.id,
-                    'name': category.parent_category.name,
-                } if category.parent_category else None
-            } for category in categories
-        ]
-    }
+    category_queryset = Category.objects.all().prefetch_related('products', 'subcategory__products')
+    context = {'categories': category_queryset}
 
-    return JsonResponse(context)
+    return render(request, 'category.html', context)
 
 
 # Fetch all products with its cateogies and display results

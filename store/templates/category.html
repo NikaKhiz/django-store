@@ -3,9 +3,21 @@
 {% block content %}
   {% load mptt_tags %}
   <h1>Categories</h1>
-    <ul>
-      {% recursetree categories%}
-        <li><a href='{% url "category" node.id %}'>{{ node.name }}</a></li>
-      {% endrecursetree  %}
-    </ul>
+  <ul>
+    {% recursetree categories %}
+      <li>
+        <a href='{% url "category" node.id %}'>{{ node.name }}</a>
+        <p>Products number: {{ node.products.count }}</p> 
+        <p>Subcategory Products number: 
+          <span>
+          {% for subcategory in node.subcategory.all %}
+            {% if not forloop.last %}
+              {{ subcategory.products.count }}
+            {% endif %}
+          {% endfor %}
+          </span>
+        </p>
+      </li>
+    {% endrecursetree %}
+  </ul>
 {% endblock content %}
