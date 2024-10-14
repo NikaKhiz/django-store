@@ -1,25 +1,20 @@
 {% extends "main.html" %}
-
 {% block content %}
   {% load mptt_tags %}
   <h1>Categories</h1>
   <ul>
     {% recursetree categories %}
-      <li>
-        <a href='{% url "category" node.id %}'>{{ node.name }}</a>
-        <p>
-          Category Products total:
-          <span>
-            {{ node.category_products }}
-          </span>
-        </p>
-        <p>
-          Subcategory Products total: 
-          <span>
-            {{ node.subcategory_products }}
-          </span>
-        </p>
-      </li>
-    {% endrecursetree %}
-  </ul>
+    <li>
+      <a href='{% url "category" node.id %}'>{{ node.name }}</a>
+      <p>
+        Category Products total:
+        <span>{{ node.category_products }}</span>
+      </p>
+      <p>
+        Subcategory Products total:
+        <span>{{ node.subcategory_products }}</span>
+      </p>
+    </li>
+  {% endrecursetree %}
+</ul>
 {% endblock content %}
