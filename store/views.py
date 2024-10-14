@@ -1,10 +1,19 @@
 from django.http import JsonResponse
 from .models import Category, Product
 from django.shortcuts import render
+from django.db.models import Count
 
 
 def categories(request):
-    category_queryset = Category.objects.all().prefetch_related('products', 'subcategory__products')
+    category_queryset = (
+        Category.objects
+        .prefetch_related('products', 'subcategory__products')
+        .annotate(
+            category_products=Count('products'),
+            subcategory_products=Count('subcategory__products')
+            )
+    )
+    
     context = {'categories': category_queryset}
 
     return render(request, 'category.html', context)
