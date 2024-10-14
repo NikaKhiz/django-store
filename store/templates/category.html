@@ -7,14 +7,19 @@
     {% recursetree categories %}
       <li>
         <a href='{% url "category" node.id %}'>{{ node.name }}</a>
-        <p>Products number: {{ node.products.count }}</p> 
-        <p>Subcategory Products number: 
+        <p>Category Products total: {{ node.products.all.count }}</p>
+        <p>
+          Subcategory Products total: 
           <span>
-          {% for subcategory in node.subcategory.all %}
-            {% if not forloop.last %}
-              {{ subcategory.products.count }}
-            {% endif %}
-          {% endfor %}
+            {% with total_products=0 %}
+              {% for subcategory in node.get_children %}
+                {% with subcategory_products_count=subcategory.products.all.count %}
+                  {% with total_products=total_products|add:subcategory_products_count %}
+                  {% endwith %}
+                {% endwith %}
+              {% endfor %}
+              {{ total_products }}
+            {% endwith %}
           </span>
         </p>
       </li>
