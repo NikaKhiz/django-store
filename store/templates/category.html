@@ -5,7 +5,7 @@
   <ul>
     {% recursetree categories %}
     <li>
-      <a href='{% url "products" node.id %}'>{{ node.name }}</a>
+      <a href='{% url "store:products" node.id %}'>{{ node.name }}</a>
       <p>
         Category Products total:
         <span>{{ node.category_products }}</span>

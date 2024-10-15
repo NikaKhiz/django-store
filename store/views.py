@@ -19,9 +19,9 @@ def categories(request):
     return render(request, 'category.html', context)
 
 
-def category_products(request, id):
+def category_products(request, category_id):
     # Category instance by given id
-    category = get_object_or_404(Category, id=id)
+    category = get_object_or_404(Category, id=category_id)
 
     # Products from the current category and its subcategories with total price annotation
     products = (
@@ -46,15 +46,17 @@ def category_products(request, id):
         'lowest_price_product': products_lower_price,
         'products_avg_price': products_average_price,
         'all_products_total_price': products_total_price,
+        'category_id': category_id,
     }
     
     return render(request, 'category_products.html', context)
 
 
 # Product detailed page
-def product_show(request, slug):
-    product = get_object_or_404(Product, slug=slug)
+def product_show(request, category_id, slug):
+    category = get_object_or_404(Category, id=category_id) 
+    product = Product.objects.get(category=category, slug=slug)
 
-    context = {'product' : product}
+    context = {'product' : product, 'category_id': category_id}
 
     return render(request, 'product.html', context)

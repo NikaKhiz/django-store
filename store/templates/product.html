@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
   <div>
-    <a href='javascript:history.back()'>Go Back</a>
+    <a href='{% url "store:products" category_id %}'>Go Back</a>
     <h1>{{ product.name }}</h1>
     <p>
       <strong>Description:</strong> {{ product.description }}
