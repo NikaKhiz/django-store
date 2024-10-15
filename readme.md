@@ -16,7 +16,6 @@
 
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
 
 ### Prerequisites
 
@@ -79,13 +78,3 @@ python3 manage.py runserver
 ```
 
 ### the code above will start development server and you should be good to go. you can visit site on [localhost](http://127.0.0.1:8000/)!!!
-
-### Project Structure
-
-```bash
-├─── djangostore
-│   ├─── media
-│   ├─── order
-│   ├─── readme
-│   ├─── storeproducts associated with current category
-```
