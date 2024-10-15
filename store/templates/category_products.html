@@ -5,7 +5,7 @@
       <li>
         <p>
           <span>{{ product.name }} -</span>
-          <span>total price - {{ product_subtotal }} $</span>
+          <span>total price - {{ product.total_price | floatformat:2 }} $</span>
         </p>
       </li>
     {% endfor %}

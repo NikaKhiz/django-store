@@ -24,13 +24,13 @@ def category_products(request, id):
     # Category instance by given id
     category = get_object_or_404(Category, id=id)
     # products products from the current category and its subcategories
-    products = Product.objects.filter(category=category) | Product.objects.filter(category__in=category.subcategory.all())
-    # total price for the products
-    product_subtotal = products.annotate(total_price=F('quantity') * F('price')).aggregate(sub_total=Sum('total_price'))
-
+    products = (
+        (Product.objects.filter(category=category) | Product.objects.filter(category__in=category.subcategory.all()))
+        .annotate(total_price=F('quantity') * F('price'))
+    )
+   
     context = {
         'products': products,
-        'product_subtotal': round(product_subtotal['sub_total'], 2)  
     }
     
     return render(request, 'category_products.html', context)
