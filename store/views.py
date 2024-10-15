@@ -8,8 +8,8 @@ def categories(request):
         Category.objects
         .prefetch_related('products', 'subcategory__products')
         .annotate(
-            category_products=Count('products'),
-            subcategory_products=Count('subcategory__products')
+            category_products=Count('products', distinct=True),
+            subcategory_products=Count('subcategory__products', distinct=True)
             )
     )
     
