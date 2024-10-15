@@ -46,8 +46,8 @@ def category_products(request, id):
 
 
 # Product detailed page
-def product_show(request,id):
-    product = get_object_or_404(Product, id=id)
+def product_show(request, slug):
+    product = get_object_or_404(Product, slug=slug)
 
     context = {'product' : product}
 
