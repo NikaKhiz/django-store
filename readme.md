@@ -1,13 +1,14 @@
 # DjangoStore
 
 <p>Application that will give users opportunities to take a look of listed products, see detailed information about specific items, purchase items, see order information and many more.</p>
-<p>currently there is only 2 routes available, products and order routes.</p>
+<p>currently there is only 2 main routes available, products and order routes.</p>
 
-1. **localhost/ we display products list.**
-2. **localhost/product/id (1,2etc..) displays specific product details.**
-3. **localhost/categories displays already existed categories.**
-4. **localhost/order displays order creation view.**
-5. **localhost/order/id (1,2etc..) displays specific order details view.**
+1. **localhost/ admin panel**
+2. **localhost/category list all of the categoryes and products counts.**
+3. **localhost/category/category_id/products products associated with current category.**
+4. **localhost/product/product_slug product detailed page.**
+5. **localhost/order displays order creation view.**
+6. **localhost/order/id (1,2etc..) displays specific order details view.**
 
 <p>Site has superuser (user:admin, pass:admin123). you can visit localhost/admin and log in to dashboard.</p>
 
@@ -86,10 +87,5 @@ python3 manage.py runserver
 │   ├─── media
 │   ├─── order
 │   ├─── readme
-│   ├─── store
-- .gitignore
-- db.sqlite3
-- manage.py
-- readme.md
-- requirements.txt
+│   ├─── storeproducts associated with current category
 ```
