@@ -1,13 +1,22 @@
 {% extends "main.html" %}
 {% block content %}
-  <ul>
-    {% for product in products %}
-      <li>
-        <p>
-          <span>{{ product.name }} -</span>
-          <span>total price - {{ product.total_price | floatformat:2 }} $</span>
-        </p>
-      </li>
-    {% endfor %}
-  </ul>
+  <div>
+    <p>highest price product - {{ highest_price_product }} $</p>
+    <p>lowest price product - {{ lowest_price_product }} $</p>
+    <p>products average price - {{ products_avg_price }} $</p>
+    <p>products total price - {{ all_products_total_price }} $</p>
+  </div>
+  <div>
+    <h3>products in category</h3>
+    <ul>
+      {% for product in products %}
+        <li>
+          <p>
+            <span>{{ product.name }} -</span>
+            <span>total price - {{ product.total_price | floatformat:2 }} $</span>
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock content %}
