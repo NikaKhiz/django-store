@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from .models import Category, Product
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, F, Sum, Max, Min, Avg
@@ -17,7 +16,6 @@ def categories(request):
     context = {'categories': category_queryset}
 
     return render(request, 'category.html', context)
-
 
 
 def category_products(request, id):
@@ -47,19 +45,10 @@ def category_products(request, id):
     return render(request, 'category_products.html', context)
 
 
-# Display a specific product details 
+# Product detailed page
 def product_show(request,id):
-    try:
-        product = Product.objects.get(id=id)
-        context = {
-            'id': product.id,
-            'name': product.name,
-            'description': product.description,
-            'price': product.price,
-            'image': f'http://localhost:8000{product.image.url}' if product.image else None,
-            'categories': [category.name for category in product.category.all()]
-        }
-        return JsonResponse(context)
-    except Product.DoesNotExist:
-        return JsonResponse({'error': 'Product not found'}, status=404)
+    product = get_object_or_404(Product, id=id)
 
+    context = {'product' : product}
+
+    return render(request, 'product.html', context)
