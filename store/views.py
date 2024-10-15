@@ -1,6 +1,7 @@
 from .models import Category, Product
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, F, Sum, Max, Min, Avg
+from django.core.paginator import Paginator
 
 
 def categories(request):
@@ -29,13 +30,18 @@ def category_products(request, id):
     ).distinct().annotate(total_price=F('quantity') * F('price'))
 
 
+    paginator = Paginator(products, 2)  
+    page = request.GET.get('page')
+    page_content = paginator.get_page(page)
+
+
     products_highest_price = round(products.aggregate(Max('total_price'))['total_price__max'], 2)
     products_lower_price = round(products.aggregate(Min('total_price'))['total_price__min'], 2)
     products_average_price = round(products.aggregate(Avg('total_price'))['total_price__avg'], 2)
     products_total_price = round(products.aggregate(Sum('total_price'))['total_price__sum'], 2)
 
     context = {
-        'products': products,
+        'products': page_content,
         'highest_price_product': products_highest_price ,
         'lowest_price_product': products_lower_price,
         'products_avg_price': products_average_price,

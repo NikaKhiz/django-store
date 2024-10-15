@@ -1,10 +1,10 @@
 {% extends "main.html" %}
 {% block content %}
   <div>
-    <p>highest price product - {{ highest_price_product }} $</p>
-    <p>lowest price product - {{ lowest_price_product }} $</p>
-    <p>products average price - {{ products_avg_price }} $</p>
-    <p>products total price - {{ all_products_total_price }} $</p>
+    <p>highest price product in this category - {{ highest_price_product }} $</p>
+    <p>lowest price product in this category - {{ lowest_price_product }} $</p>
+    <p>products average price in this category - {{ products_avg_price }} $</p>
+    <p>products total price in this category - {{ all_products_total_price }} $</p>
   </div>
   <div>
     <h3>products in category</h3>
@@ -18,5 +18,18 @@
         </li>
       {% endfor %}
     </ul>
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if products.has_previous %}
+        <a href="?page=1">პირველი</a>
+        <a href="?page={{ products.previous_page_number }}">წინა</a>
+      {% endif %}
+      <span class="current">გვერდი {{ products.number }} დან {{ products.paginator.num_pages }}.</span>
+      {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}">შემდეგი</a>
+        <a href="?page={{ products.paginator.num_pages }}">ბოლო</a>
+      {% endif %}
+    </span>
   </div>
 {% endblock content %}
