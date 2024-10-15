@@ -35,9 +35,9 @@ def category_products(request, id):
     page_content = paginator.get_page(page)
 
 
-    products_highest_price = round(products.aggregate(Max('total_price'))['total_price__max'], 2)
-    products_lower_price = round(products.aggregate(Min('total_price'))['total_price__min'], 2)
-    products_average_price = round(products.aggregate(Avg('total_price'))['total_price__avg'], 2)
+    products_highest_price = round(products.aggregate(Max('price'))['price__max'], 2)
+    products_lower_price = round(products.aggregate(Min('price'))['price__min'], 2)
+    products_average_price = round(products.aggregate(Avg('price'))['price__avg'], 2)
     products_total_price = round(products.aggregate(Sum('total_price'))['total_price__sum'], 2)
 
     context = {
