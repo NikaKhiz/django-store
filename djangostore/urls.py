@@ -6,9 +6,9 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('store.urls')),
-    path('', include('order.urls'))
+    path('', include('order.urls')),
+    path('', admin.site.urls)
 ] + debug_toolbar_urls()
 
 
