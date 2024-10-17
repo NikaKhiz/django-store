@@ -46,8 +46,8 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('name', 'slug', 'category', ('price', 'quantity'), 'is_published')
         }),
         ('Advanced options', {
-            'classes': ('collapse', ),
-            'fields': ('image', )
+            'classes': ('collapse',),
+            'fields': ('image', 'description')
         }),
     )
 
