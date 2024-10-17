@@ -11,6 +11,10 @@
 6. **localhost/order/id (1,2etc..) displays specific order details view.**
 
 <p>Site has superuser (user:admin, pass:admin123). you can visit localhost/admin and log in to dashboard.</p>
+<p>Site has test user aswell (user:testuser, pass:passfortestuser1).</p>
+<p>
+Test user has readgroup that a readonly group that gives the user access to see already existed products and categories 
+</p>
 
 ### Table of Contents
 
