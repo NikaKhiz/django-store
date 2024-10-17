@@ -14,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = [CategoryFilter]
     ordering = ('name',)
     list_select_related = ('parent',)
+    list_editable = ('parent',)
     
     fieldsets = (
         (None, {
