@@ -8,6 +8,8 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('parent',)
     ordering = ('name',)
+    list_select_related = ('parent',)
+    
     fieldsets = (
         (None, {
             'fields': ('name', 'parent')
@@ -22,8 +24,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('is_published', 'category')
     autocomplete_fields = ('category', )
     prepopulated_fields = {'slug': ('name',)}
-    ordering = ('-created_at',)
+    ordering = ('-created_at', 'price', 'quantity', 'name')
     date_hierarchy = 'updated_at'
+    list_per_page = 10
+    list_editable = ('price', 'quantity', 'is_published')
+
 
     fieldsets = (
         (None, {
