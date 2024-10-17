@@ -15,6 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ('name',)
     list_select_related = ('parent',)
     list_editable = ('parent',)
+    list_per_page = 10
     
     fieldsets = (
         (None, {
