@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'userapp.apps.UserappConfig',
     'mptt',
     'debug_toolbar',
+    'admin_auto_filters'
 ]
 
 MIDDLEWARE = [

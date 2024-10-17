@@ -1,12 +1,17 @@
 from django.contrib import admin
 from .models import Category, Product
+from admin_auto_filters.filters import AutocompleteFilter
 
+
+class CategoryFilter(AutocompleteFilter):
+    title = 'Category' 
+    field_name = 'parent' 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent', 'created_at', 'updated_at')
     search_fields = ('name',)
-    list_filter = ('parent',)
+    list_filter = [CategoryFilter]
     ordering = ('name',)
     list_select_related = ('parent',)
     
@@ -17,11 +22,16 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
+
+class ProductFilterByCategory(AutocompleteFilter):
+    title = 'Category' 
+    field_name = 'category' 
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'quantity', 'total_prices', 'is_published', 'created_at', 'updated_at')
     search_fields = ('name', 'slug',)
-    list_filter = ('is_published', 'category')
+    list_filter = [ProductFilterByCategory, 'is_published']
     autocomplete_fields = ('category', )
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('-created_at', 'price', 'quantity', 'name')
