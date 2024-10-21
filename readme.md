@@ -1,20 +1,28 @@
 # DjangoStore
 
-<p>Application that will give users opportunities to take a look of listed products, see detailed information about specific items, purchase items, see order information and many more.</p>
-<p>currently there is only 2 main routes available, products and order routes.</p>
+<p>Application that will give users opportunities to take a look of listed products, see detailed information about specific items, purchase items, see order information and many more.
+</p>
 
-1. **localhost/ admin panel**
-2. **localhost/category list all of the categoryes and products counts.**
-3. **localhost/category/category_id/products products associated with current category.**
-4. **localhost/product/product_slug product detailed page.**
-5. **localhost/order displays order creation view.**
-6. **localhost/order/id (1,2etc..) displays specific order details view.**
+1. **localhost/ main page.**
+2. **localhost/category/category_slug/ lists products corresponding to category.**
+<p>if no slug presents, default value is passed</p>
+
+3. **localhost/product/product_slug/ product detailed page.**
+<p>if no slug presents, default value is passed</p>
+
+4. **localhost/contact/ contact page.**
+5. **localhost/order/cart displays cart page.**
+6. **localhost/order/checkout/ displays checkout page.**
 
 <p>Site has superuser (user:admin, pass:admin123). you can visit localhost/admin and log in to dashboard.</p>
-<p>Site has test user aswell (user:testuser, pass:passfortestuser1).</p>
-<p>
-Test user has readgroup that a readonly group that gives the user access to see already existed products and categories 
-</p>
+<p>currently we use hardcoded data in templates. </p>
+
+<h3>Future Plans</h3>
+
+- Populate the database with dynamic data.
+- Implement calculations for pricing and inventory management.
+- Develop order creation, cart functionality, and checkout processes.
+- Introduce user authorization and registration features.
 
 ### Table of Contents
 
