@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'userapp.apps.UserappConfig',
     'mptt',
     'debug_toolbar',
-    'admin_auto_filters'
+    'admin_auto_filters',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static_common'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 

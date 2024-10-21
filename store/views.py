@@ -4,19 +4,9 @@ from django.db.models import Count, F, Sum, Max, Min, Avg
 from django.core.paginator import Paginator
 
 
-def categories(request):
-    category_queryset = (
-        Category.objects
-        .prefetch_related('products', 'subcategory__products')
-        .annotate(
-            category_products=Count('products', distinct=True),
-            subcategory_products=Count('subcategory__products', distinct=True)
-            )
-    )
-    
-    context = {'categories': category_queryset}
-
-    return render(request, 'category.html', context)
+def index(request):
+    context = {'categories': []}
+    return render(request, 'index.html', context)
 
 
 def category_products(request, category_id):
@@ -60,3 +50,8 @@ def product_show(request, category_id, slug):
     context = {'product' : product, 'category_id': category_id}
 
     return render(request, 'product.html', context)
+
+
+def contacts(request):
+    context = {'contacts': []}
+    return render(request, 'contacts.html', context)
