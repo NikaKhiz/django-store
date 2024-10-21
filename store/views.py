@@ -7,15 +7,15 @@ products = []
 for _ in range(6):
     products.append(
         {
-            'category':'vegetables',
-            'title': 'Banana',
+            'category':'Fruits',
+            'title': 'Orange',
             'weight': '1kg',
             'origin': 'Agro Farm',
             'quality': 'organic',
-            'min_weight': '250kg',
+            'min_weight': '250',
             'rate': 4,
             'description':'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt',
-            'price': '$4.99 / kg',
+            'price': '$4.99',
             'image':'img/fruite-item-1.jpg'
         }
     )
@@ -38,14 +38,14 @@ def index(request):
 
 
 def category_products(request, slug='fruits'):
-    context = {'products': []}
+    context = {'products': products}
     return render(request, 'category_products.html', context)
 
 
 # Product detailed page
 def product_show(request, slug='apple'):
     
-    context = {'product' : products[0], }
+    context = {'product' : products[3], }
 
     return render(request, 'product.html', context)
 
