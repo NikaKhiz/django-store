@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('name', 'parent')
+            'fields': ('name', 'parent', 'image', 'description')
         }),
     )
 
@@ -31,15 +31,15 @@ class ProductFilterByCategory(AutocompleteFilter):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'quantity', 'total_prices', 'is_published', 'created_at', 'updated_at')
+    list_display = ('name', 'price', 'quantity', 'total_prices', 'quality', 'origin', 'weight', 'healthy', 'is_published', 'created_at', 'updated_at')
     search_fields = ('name', 'slug',)
-    list_filter = [ProductFilterByCategory, 'is_published']
+    list_filter = [ProductFilterByCategory, 'is_published', 'healthy']
     autocomplete_fields = ('category', )
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('-created_at', 'price', 'quantity', 'name')
     date_hierarchy = 'updated_at'
     list_per_page = 10
-    list_editable = ('price', 'quantity', 'is_published')
+    list_editable = ('price', 'quantity', 'origin', 'quality', 'weight', 'is_published', 'healthy' )
 
 
     fieldsets = (
