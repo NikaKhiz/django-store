@@ -3,27 +3,49 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, F, Sum, Max, Min, Avg
 from django.core.paginator import Paginator
 
+products = []
+for _ in range(6):
+    products.append(
+        {
+            'category':'vegetables',
+            'title': 'Banana',
+            'weight': '1kg',
+            'origin': 'Agro Farm',
+            'quality': 'organic',
+            'min_weight': '250kg',
+            'rate': 4,
+            'description':'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt',
+            'price': '$4.99 / kg',
+            'image':'img/fruite-item-1.jpg'
+        }
+    )
+
+categories = []
+for _ in range(6):
+    categories.append(
+        {
+            'title': 'Fruits',
+            'slug': 'fruits',
+            'description':'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt',
+            'image':'img/fruite-item-1.jpg'
+        }
+    )
 
 def index(request):
-    context = {'categories': []}
+    
+    context = {'categories': categories}
     return render(request, 'index.html', context)
 
 
-def category_products(request, slug):
+def category_products(request, slug='fruits'):
     context = {'products': []}
     return render(request, 'category_products.html', context)
 
 
 # Product detailed page
-def product_show(request, category_id, slug):
-    category = get_object_or_404(Category, id=category_id) 
-    product = Product.objects.get(category=category, slug=slug)
-
-    context = {'product' : product, 'category_id': category_id}
+def product_show(request, slug='apple'):
+    
+    context = {'product' : products[0], }
 
     return render(request, 'product.html', context)
 
-
-def contacts(request):
-    context = {'contacts': []}
-    return render(request, 'contacts.html', context)
