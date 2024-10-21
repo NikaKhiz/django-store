@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'mptt',
     'debug_toolbar',
     'admin_auto_filters',
-    'compressor'
 ]
 
 MIDDLEWARE = [
