@@ -3,6 +3,6 @@ from .views import *
 
 app_name = 'order'
 urlpatterns = [
-    path('',order_create, name='order-create'),
-    path('<str:id>',order_show, name='order-show')
+    path('cart/',order_create, name='cart'),
+    path('checkout/',order_show, name='checkout')
 ]

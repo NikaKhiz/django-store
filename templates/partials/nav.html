@@ -28,12 +28,12 @@
         <div class="navbar-nav mx-auto">
           <a href="{% url "store:index" %}" class="nav-item nav-link active">Home</a>
           <a href="{% url "store:products" %}" class="nav-item nav-link">products</a>
-          <a href="{% url "store:product" %}" class="nav-item nav-link">product</a>
+          <a href="{% url "store:product" %}" class="nav-item nav-link">product detailed</a>
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-              <a href="cart.html" class="dropdown-item">Cart</a>
-              <a href="chackout.html" class="dropdown-item">Chackout</a>
+              <a href="{% url "order:cart" %}" class="dropdown-item">Cart</a>
+              <a href="{% url "order:checkout" %}" class="dropdown-item">Chackout</a>
             </div>
           </div>
         </div>
