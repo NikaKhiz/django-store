@@ -28,7 +28,7 @@ class Product(models.Model):
     weight = models.BigIntegerField(null=True, blank=True)
     origin = models.CharField(max_length=255, null=True, blank=True)
     quality = models.CharField(max_length=255, null=True, blank=True)
-    healthy = models.BooleanField(default=True, null=True, blank=True)
+    healthy = models.BooleanField(default=True)
     is_published = models.BooleanField(default=False)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     category = models.ManyToManyField('store.Category', related_name='products')

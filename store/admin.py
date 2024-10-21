@@ -44,7 +44,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'slug', 'category', ('price', 'quantity'), 'is_published')
+            'fields': ('name', 'slug', 'category', ('price', 'quantity'), ('is_published', 'healthy'), 'origin', 'weight', 'quality')
         }),
         ('Advanced options', {
             'classes': ('collapse',),
