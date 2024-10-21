@@ -49,3 +49,7 @@ def product_show(request, slug='apple'):
 
     return render(request, 'product.html', context)
 
+
+# contacts page
+def contact(request):
+    return render(request, 'contacts.html')

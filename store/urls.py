@@ -12,4 +12,6 @@ urlpatterns = [
     # product detailed page
     path('product/', product_show, name='product'),
     path('product/<slug:slug>/', product_show, name='product'),
+    # contacts page
+    path('contact/', contact, name='contacts'),
 ]
