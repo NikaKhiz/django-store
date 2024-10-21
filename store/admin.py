@@ -13,13 +13,14 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = [CategoryFilter]
     ordering = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
     list_select_related = ('parent',)
     list_editable = ('parent',)
     list_per_page = 10
     
     fieldsets = (
         (None, {
-            'fields': ('name', 'parent', 'image', 'description')
+            'fields': ('name', 'slug', 'parent', 'image', 'description')
         }),
     )
 

@@ -4,6 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(unique=True, max_length=200) 
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subcategory')
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
