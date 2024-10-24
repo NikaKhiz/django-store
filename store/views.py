@@ -48,8 +48,13 @@ def category_products(request, slug=None):
         ))
     
     products = []
+    tags = set()
     for category in categories:
         products.extend(category.products.all())
+
+    for product in products:
+        tags.update(product.tag.all())
+    tags = list(tags)
 
 
     breadcrumb = [('Shop', 'store:products', None)]
@@ -60,6 +65,7 @@ def category_products(request, slug=None):
         'root_categories': root_categories,
         'categories': categories, 
         'products': products,
+        'tags' : tags,
         'breadcrumb': breadcrumb,
         'slug': slug
         }
