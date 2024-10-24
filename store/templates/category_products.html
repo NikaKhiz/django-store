@@ -91,7 +91,7 @@
                           <li>
                             <div class="d-flex justify-content-between fruite-name">
                               <a href="{% url "store:products" category.slug %}"><i class="fas fa-apple-alt me-2"></i>{{ category.name }}</a>
-                              <span>{{ category.item_count }}</span>
+                              <span>({{ category.products.count }})</span>
                             </div>
                           </li>
                         {% endfor %}
