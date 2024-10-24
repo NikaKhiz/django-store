@@ -16,15 +16,19 @@
                             data-bs-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex align-items-center">
+                <form id="search_form"
+                      method="POST"
+                      action="{% url "store:products" %}"
+                      class="modal-body d-flex align-items-center">
+                    {% csrf_token %}
                     <div class="input-group w-75 mx-auto d-flex">
-                        <input type="search"
+                        <input type="text"
+                               id="product_name"
+                               name="product_name"
                                class="form-control p-3"
-                               placeholder="keywords"
-                               aria-describedby="search-icon-1">
-                        <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                               placeholder="search product by name">
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
