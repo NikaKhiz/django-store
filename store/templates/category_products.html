@@ -16,7 +16,11 @@
                   data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
-        <div class="modal-body d-flex align-items-center">
+        <form id="search_form"
+              method="POST"
+              action="."
+              class="modal-body d-flex align-items-center">
+          {% csrf_token %}
           <div class="input-group w-75 mx-auto d-flex">
             <input type="text"
                    id="product_name"
@@ -25,7 +29,7 @@
                    placeholder="product name"
                    value="{{ request.POST.product_name|default:'' }}">
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
