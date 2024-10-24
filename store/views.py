@@ -41,7 +41,7 @@ def category_products(request, slug=None):
     if slug:
         categories = Category.objects.filter(slug=slug).prefetch_related(Prefetch(
             'products', queryset=Product.objects.prefetch_related('tag')
-        ))
+        )).all()
     else:
         categories = Category.objects.prefetch_related(Prefetch(
             'products', queryset=Product.objects.prefetch_related('tag')
@@ -52,16 +52,16 @@ def category_products(request, slug=None):
         products.extend(category.products.all())
 
 
-    breadcrumb = [('Shop', 'store:products')]
+    breadcrumb = [('Shop', 'store:products', None)]
     if slug:
-        breadcrumb.append((categories[0].name,'store:products'))
+        breadcrumb.append((categories[0].name,'store:products', categories[0].slug))
 
     context = {
         'root_categories': root_categories,
         'categories': categories, 
         'products': products,
-        'slug': slug,
-        'breadcrumb': breadcrumb
+        'breadcrumb': breadcrumb,
+        'slug': slug
         }
 
     return render(request, 'category_products.html', context)
