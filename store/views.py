@@ -49,7 +49,7 @@ def category_products(request, slug=None):
             'products', queryset=Product.objects.prefetch_related('tag')
         ))
     
-    products = Product.objects.filter(category__in=categories)
+    products = Product.objects.filter(category__in=categories).distinct()
     
     # handle post request
     if request.method == 'POST':
