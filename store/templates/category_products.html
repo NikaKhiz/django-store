@@ -175,10 +175,21 @@
                 {% endfor %}
                 <div class="col-12">
                   <div class="pagination d-flex justify-content-center mt-5">
-                    <a href="#" class="rounded">&laquo;</a>
-                    <a href="#" class="active rounded">1</a>
-                    <a href="#" class="rounded">2</a>
-                    <a href="#" class="rounded">&raquo;</a>
+                    {% if products.has_previous %}
+                      <a href="?page=1" class="rounded">&laquo; First</a>
+                      <a href="?page={{ products.previous_page_number }}" class="rounded">Previous</a>
+                    {% endif %}
+                    {% for page_num in products.paginator.page_range %}
+                      {% if products.number == page_num %}
+                        <a href="?page={{ page_num }}" class="active rounded">{{ page_num }}</a>
+                      {% else %}
+                        <a href="?page={{ page_num }}" class="rounded">{{ page_num }}</a>
+                      {% endif %}
+                    {% endfor %}
+                    {% if products.has_next %}
+                      <a href="?page={{ products.next_page_number }}" class="rounded">Next</a>
+                      <a href="?page={{ products.paginator.num_pages }}" class="rounded">Last &raquo;</a>
+                    {% endif %}
                   </div>
                 </div>
               </div>

@@ -51,10 +51,15 @@ def category_products(request, slug=None):
     tags = set()
     for category in categories:
         products.extend(category.products.all())
+    paginator = Paginator(products, 3)  
+    page = request.GET.get('page', 1) 
+    page_content = paginator.get_page(page)
 
     for product in products:
         tags.update(product.tag.all())
+
     tags = list(tags)
+
 
 
     breadcrumb = [('Shop', 'store:products', None)]
@@ -64,7 +69,7 @@ def category_products(request, slug=None):
     context = {
         'root_categories': root_categories,
         'categories': categories, 
-        'products': products,
+        'products': page_content,
         'tags' : tags,
         'breadcrumb': breadcrumb,
         'slug': slug
