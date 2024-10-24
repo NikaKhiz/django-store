@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import Category, Product, ProductTag
 from admin_auto_filters.filters import AutocompleteFilter
 
 
@@ -29,13 +29,16 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductFilterByCategory(AutocompleteFilter):
     title = 'Category' 
     field_name = 'category' 
+class ProductFilterByTag(AutocompleteFilter):
+    title = 'Tag' 
+    field_name = 'tag' 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'quantity', 'total_prices', 'quality', 'origin', 'weight', 'healthy', 'is_published', 'created_at', 'updated_at')
     search_fields = ('name', 'slug',)
-    list_filter = [ProductFilterByCategory, 'is_published', 'healthy']
-    autocomplete_fields = ('category', )
+    list_filter = [ProductFilterByCategory, ProductFilterByTag, 'is_published', 'healthy']
+    autocomplete_fields = ('category', 'tag')
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('-created_at', 'price', 'quantity', 'name')
     date_hierarchy = 'updated_at'
@@ -45,7 +48,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'slug', 'category', ('price', 'quantity'), ('is_published', 'healthy'), 'origin', 'weight', 'quality')
+            'fields': ('name', 'slug', 'category', 'tag', ('price', 'quantity'), ('is_published', 'healthy'), 'origin', 'weight', 'quality')
         }),
         ('Advanced options', {
             'classes': ('collapse',),
@@ -56,3 +59,19 @@ class ProductAdmin(admin.ModelAdmin):
     @admin.display
     def total_prices(self, obj):
         return obj.price * obj.quantity
+    
+
+
+@admin.register(ProductTag)
+class ProductTagAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    ordering = ('name', )
+    date_hierarchy = 'updated_at'
+    list_per_page = 10
+
+    fieldsets = (
+        (None, {
+            'fields': ('name',)
+        }),
+    )

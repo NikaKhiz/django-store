@@ -33,8 +33,19 @@ class Product(models.Model):
     is_published = models.BooleanField(default=False)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     category = models.ManyToManyField('store.Category', related_name='products')
+    tag = models.ManyToManyField('store.ProductTag', related_name='products')
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.name
+
+
+class ProductTag(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+
