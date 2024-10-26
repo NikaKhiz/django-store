@@ -1,4 +1,4 @@
-from .models import Category, Product
+from .models import Category, Product, ProductTag
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, F, Sum, Max, Min, Avg, Prefetch
 from django.core.paginator import Paginator
@@ -23,13 +23,11 @@ for _ in range(6):
     )
 
 def index(request):
-    root_categories = Category.objects.filter(parent=None)
+    # for displaying root categories in navigation
+    root_categories = Category.objects.filter(parent__isnull=True)
+    categories = root_categories.get_descendants(include_self=True)
 
-    categories = Category.objects.prefetch_related(Prefetch(
-        'products', queryset=Product.objects.prefetch_related('tag')
-    ))
-
-    products = Product.objects.filter(category__in=categories)
+    products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
 
     context = {'root_categories': root_categories,'categories': categories, 'products': products}
 
@@ -37,19 +35,20 @@ def index(request):
 
 def category_products(request, slug=None):
     # for displaying root categories in navigation
-    root_categories = Category.objects.filter(parent=None)
-    
-    # for handling template rendering accordinly if slug exists
+    root_categories = Category.objects.filter(parent__isnull=True)
+
+    # get products according to given category if choosen, else from root categories
     if slug:
-        categories = Category.objects.filter(slug=slug).prefetch_related(Prefetch(
-            'products', queryset=Product.objects.prefetch_related('tag')
-        )).all()
+        selected_category = get_object_or_404(Category, slug=slug)
+        products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
+        # get children categories from selected category object to display in template
+        categories = selected_category.get_children().annotate(product_count=Count('products'))
     else:
-        categories = Category.objects.prefetch_related(Prefetch(
-            'products', queryset=Product.objects.prefetch_related('tag')
-        ))
+        categories = root_categories.annotate(product_count=Count('products'))
+        products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
+
     
-    products = Product.objects.filter(category__in=categories).distinct()
+    # get products of choosen categories 
     
     # handle post request
     if request.method == 'POST':
@@ -59,6 +58,7 @@ def category_products(request, slug=None):
             product_price = request.POST.get('product_price')
             tag = request.POST.get('product_tag')
             sort_option = request.POST.get('sort_list')
+            
             if product_name:
                 products = products.filter(name__icontains=product_name)
             if product_price:
@@ -76,31 +76,22 @@ def category_products(request, slug=None):
             print('display error messages')
 
     # paginate products in given category
-    paginator = Paginator(products, 3)  
+    paginator = Paginator(products, 1)  
     page = request.GET.get('page', 1) 
     page_content = paginator.get_page(page)
+    elided_page_range = paginator.get_elided_page_range(page_content.number, on_each_side=2, on_ends=2)
 
+    # get product tags 
+    tags = ProductTag.objects.filter(products__in=products).distinct()
 
-    # update tags from paginated products
-    tags = set()
-    for product in products:
-        tags.update(product.tag.all())
-
-    tags = list(tags)
-
-
-    # generate dynamic products page navigation links
-    breadcrumb = [('Shop', 'store:products', None)]
-    if slug:
-        breadcrumb.append((categories[0].name,'store:products', categories[0].slug))
 
     context = {
         'root_categories': root_categories,
-        'categories': categories, 
-        'products': page_content,
+        'categories': categories,
+        'page_content': page_content,
         'tags' : tags,
-        'breadcrumb': breadcrumb,
-        'slug': slug
+        'slug': slug,
+        'elided_page_range': elided_page_range,
         }
 
     return render(request, 'category_products.html', context)
