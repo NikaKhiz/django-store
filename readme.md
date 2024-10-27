@@ -15,14 +15,6 @@
 6. **localhost/order/checkout/ displays checkout page.**
 
 <p>Site has superuser (user:admin, pass:admin123). you can visit localhost/admin and log in to dashboard.</p>
-<p>currently we use hardcoded data in templates. </p>
-
-<h3>Future Plans</h3>
-
-- Populate the database with dynamic data.
-- Implement calculations for pricing and inventory management.
-- Develop order creation, cart functionality, and checkout processes.
-- Introduce user authorization and registration features.
 
 ### Table of Contents
 
