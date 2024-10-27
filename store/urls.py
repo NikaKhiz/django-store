@@ -8,8 +8,8 @@ urlpatterns = [
     # main page
     path('', Indexview.as_view(), name='index'),
     # products listing by categories
-    path('category/', category_products, name='products'),
-    path('category/<slug:slug>/', category_products, name='products'),
+    path('category/', CategoryProductsView.as_view(), name='products'),
+    path('category/<slug:slug>/', CategoryProductsView.as_view(), name='products'),
     # product detailed page
     path('product/', ProductView.as_view(), name='product'),
     path('product/<slug:slug>/', ProductView.as_view(), name='product'),

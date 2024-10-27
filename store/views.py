@@ -1,7 +1,7 @@
 from .models import Category, Product, ProductTag
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
 from django.db.models import Count
-from django.core.paginator import Paginator
 from store.forms import ProductForm
 from django.views import View
 from django.views.generic import DetailView
@@ -19,26 +19,39 @@ class Indexview (View):
 
         return render(request, 'index.html', context)
 
+class CategoryProductsView(ListView):
+    model = Product
+    template_name = 'category_products.html'
+    context_object_name = 'products'
+    paginate_by = 1  
 
-def category_products(request, slug=None):
-    # for displaying root categories in navigation
-    root_categories = Category.objects.filter(parent__isnull=True)
+    def get_queryset(self):
+        slug = self.kwargs.get('slug')
+        root_categories = Category.objects.filter(parent__isnull=True)
 
-    # get products according to given category if choosen, else from root categories
-    if slug:
-        selected_category = get_object_or_404(Category, slug=slug)
-        products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
-        # get children categories from selected category object to display in template
-        categories = selected_category.get_children().annotate(product_count=Count('products'))
-    else:
-        categories = root_categories.annotate(product_count=Count('products'))
-        products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
+        if slug:
+            selected_category = get_object_or_404(Category, slug=slug)
+            products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
+            self.categories = selected_category.get_children().annotate(product_count=Count('products'))
+        else:
+            self.categories = root_categories.annotate(product_count=Count('products'))
+            products = Product.objects.filter(category__in=self.categories).distinct().prefetch_related('tag')
 
-    
-    # get products of choosen categories 
-    
-    # handle post request
-    if request.method == 'POST':
+        return products
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['root_categories'] = Category.objects.filter(parent__isnull=True)
+        context['categories'] = self.categories
+        context['slug'] = self.kwargs.get('slug')
+        context['tags'] = ProductTag.objects.all().distinct()
+        context['get_elided_page_range'] = context['paginator'].get_elided_page_range(
+            self.request.GET.get(self.page_kwarg, 1)
+            )
+
+        return context
+
+    def post(self, request, *args, **kwargs):
         form = ProductForm(request.POST)
         if form.is_valid():
             product_name = request.POST.get('product_name')
@@ -46,42 +59,26 @@ def category_products(request, slug=None):
             tag = request.POST.get('product_tag')
             sort_option = request.POST.get('sort_list')
             
+            queryset = self.get_queryset()
             if product_name:
-                products = products.filter(name__icontains=product_name)
+                queryset = queryset.filter(name__icontains=product_name)
             if product_price:
-                products = products.filter(price__lte=product_price)
+                queryset = queryset.filter(price__lte=product_price)
             if tag:
-                products = products.filter(tag__name__icontains=tag)
+                queryset = queryset.filter(tag__name__icontains=tag)
 
             if sort_option == 'price_up':
-                products = products.order_by('price')
+                queryset = queryset.order_by('price')
             elif sort_option == 'price_down':
-                products = products.order_by('-price')
+                queryset = queryset.order_by('-price')
             elif sort_option == 'created_at':
-                products = products.order_by('-created_at')
-        else:
-            print('display error messages')
+                queryset = queryset.order_by('-created_at')
 
-    # paginate products in given category
-    paginator = Paginator(products, 1)  
-    page = request.GET.get('page', 1) 
-    page_content = paginator.get_page(page)
-    elided_page_range = paginator.get_elided_page_range(page_content.number, on_each_side=2, on_ends=2)
+            self.object_list = queryset
+            context = self.get_context_data()
+            return self.render_to_response(context)
 
-    # get product tags 
-    tags = ProductTag.objects.filter(products__in=products).distinct()
-
-
-    context = {
-        'root_categories': root_categories,
-        'categories': categories,
-        'page_content': page_content,
-        'tags' : tags,
-        'slug': slug,
-        'elided_page_range': elided_page_range,
-        }
-
-    return render(request, 'category_products.html', context)
+        return self.get(request, *args, **kwargs)
 
 
 # Product detailed page
