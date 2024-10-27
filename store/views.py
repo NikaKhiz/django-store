@@ -98,7 +98,3 @@ class ProductView(DetailView):
 
         return context
     
-
-# contacts page
-def contact(request):
-    return render(request, 'contacts.html')

@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from django.views.generic import TemplateView
 
 app_name = 'store'
 
@@ -13,5 +14,5 @@ urlpatterns = [
     path('product/', ProductView.as_view(), name='product'),
     path('product/<slug:slug>/', ProductView.as_view(), name='product'),
     # contacts page
-    path('contact/', contact, name='contacts'),
+    path('contact/', TemplateView.as_view(template_name='contacts.html'), name='contacts'),
 ]
