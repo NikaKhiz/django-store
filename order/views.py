@@ -1,59 +1,48 @@
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from store.models import Product
 from .forms import CartItemForm
 from .models import Usercart
 from django.db.models import F, Sum
-
-order_items = []
-for _ in range(3):
-    order_items.append(
-        {
-            'title': 'Oranges',
-            'price': '2.99',
-            'image': 'img/fruite-item-1.jpg',
-        }
-    )
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-# Display the cart view
-@login_required
-def order_create(request):
-    cart, _ = Usercart.objects.get_or_create(user=request.user)
-    cart_items = cart.cart_items.all().annotate(total_price=F('product__price') * F('quantity'))
+# parent view for cart and checkout views
+class BaseCartView(LoginRequiredMixin, View):
+    shipping_cost = 3 
 
-    shipping_cost = 3
-    subtotal = sum(item.total_price for item in cart_items)
-    total = subtotal + shipping_cost
+    def get_cart_context(self, request):
+        cart, _ = Usercart.objects.get_or_create(user=request.user)
+        cart_items = cart.cart_items.all().annotate(total_price=F('product__price') * F('quantity'))
 
-    context = {
-        'cart_items': cart_items,
-        'subtotal': subtotal,
-        'total': total,
-        'shipping_cost': shipping_cost
+        subtotal = sum(item.total_price for item in cart_items)
+        total = subtotal + self.shipping_cost
+
+        return {
+            'cart_items': cart_items,
+            'subtotal': subtotal,
+            'total': total,
+            'shipping_cost': self.shipping_cost,
         }
     
-    return render(request, 'cart.html', context)
 
-# Display the checkout view
-@login_required
-def order_show(request):
-    cart, _ = Usercart.objects.get_or_create(user=request.user)
-    cart_items = cart.cart_items.all().annotate(total_price=F('product__price') * F('quantity'))
+class OrderCreateView(BaseCartView):
+    template_name = 'cart.html'
 
-    shipping_cost = 3  
-    subtotal = sum(item.total_price for item in cart_items)
-    total = subtotal + shipping_cost
+    def get(self, request, *args, **kwargs):
+        context = self.get_cart_context(request)
+        return render(request, self.template_name, context)
 
-    context = {
-        'cart': cart_items,
-        'subtotal': subtotal,
-        'total': total,
-        'shipping_cost': shipping_cost,
-    }
-    
-    return render(request, 'checkout.html', context)
+
+class OrderShowView(BaseCartView):
+    template_name = 'checkout.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_cart_context(request)
+        # change cart_items key into cart for checkout template  
+        context['cart'] = context.pop('cart_items') 
+        return render(request, self.template_name, context)
 
 
 @login_required
