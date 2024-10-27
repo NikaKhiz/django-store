@@ -36,11 +36,25 @@ def order_create(request):
     
     return render(request, 'cart.html', context)
 
-
-# Display a specific order details 
+# Display the checkout view
+@login_required
 def order_show(request):
-    context = {'cart': order_items}
+    cart, _ = Usercart.objects.get_or_create(user=request.user)
+    cart_items = cart.cart_items.all().annotate(total_price=F('product__price') * F('quantity'))
+
+    shipping_cost = 3  
+    subtotal = sum(item.total_price for item in cart_items)
+    total = subtotal + shipping_cost
+
+    context = {
+        'cart': cart_items,
+        'subtotal': subtotal,
+        'total': total,
+        'shipping_cost': shipping_cost,
+    }
+    
     return render(request, 'checkout.html', context)
+
 
 @login_required
 def cart_actions(request, product_id):
