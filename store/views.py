@@ -1,37 +1,24 @@
 from .models import Category, Product, ProductTag
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Count, F, Sum, Max, Min, Avg, Prefetch
+from django.db.models import Count
 from django.core.paginator import Paginator
 from store.forms import ProductForm
+from django.views import View
+from django.views.generic import DetailView
 
 
-products = []
-for _ in range(6):
-    products.append(
-        {
-            'category':'Fruits',
-            'title': 'Orange',
-            'weight': '1kg',
-            'origin': 'Agro Farm',
-            'quality': 'organic',
-            'min_weight': '250',
-            'rate': 4,
-            'description':'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt',
-            'price': '$4.99',
-            'image':'img/fruite-item-1.jpg'
-        }
-    )
+class Indexview (View):
 
-def index(request):
-    # for displaying root categories in navigation
-    root_categories = Category.objects.filter(parent__isnull=True)
-    categories = root_categories.get_descendants(include_self=True)
+    def get(self, request):
+        root_categories = Category.objects.filter(parent__isnull=True)
+        categories = root_categories.get_descendants(include_self=True)
 
-    products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
+        products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
 
-    context = {'root_categories': root_categories,'categories': categories, 'products': products}
+        context = {'root_categories': root_categories,'categories': categories, 'products': products}
 
-    return render(request, 'index.html', context)
+        return render(request, 'index.html', context)
+
 
 def category_products(request, slug=None):
     # for displaying root categories in navigation
@@ -98,12 +85,19 @@ def category_products(request, slug=None):
 
 
 # Product detailed page
-def product_show(request, slug='apple'):
+class ProductView(DetailView):
+    model = Product
+    template_name= 'product.html'
+    queryset= Product.objects.prefetch_related('category')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product = self.object
+
+        context['category'] = product.category.annotate(product_count=Count('products')) 
+
+        return context
     
-    context = {'product' : products[3], }
-
-    return render(request, 'product.html', context)
-
 
 # contacts page
 def contact(request):
