@@ -3,18 +3,20 @@ from django.contrib.auth.decorators import login_required
 from store.models import Product
 from .forms import CartItemForm
 from .models import Usercart
-from django.db.models import F, Sum
+from django.db.models import F
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import RedirectView
 
 
 # parent view for cart and checkout views
 class BaseCartView(LoginRequiredMixin, View):
+    login_url ='/admin'
     shipping_cost = 3 
 
     def get_cart_context(self, request):
-        cart, _ = Usercart.objects.get_or_create(user=request.user)
-        cart_items = cart.cart_items.all().annotate(total_price=F('product__price') * F('quantity'))
+        cart = Usercart.objects.get(user=request.user)
+        cart_items = cart.cart_items.annotate(total_price=F('product__price') * F('quantity'))
 
         subtotal = sum(item.total_price for item in cart_items)
         total = subtotal + self.shipping_cost
@@ -45,16 +47,22 @@ class OrderShowView(BaseCartView):
         return render(request, self.template_name, context)
 
 
-@login_required
-def cart_actions(request, product_id):
 
-    product = get_object_or_404(Product, id=product_id)
-    form = CartItemForm(request.POST, product=product)
+class CartActionsView(LoginRequiredMixin,RedirectView):
+    login_url='/admin'
 
-    if form.is_valid():
-        form.update_cart_item(request.user)
-    else:
-        return HttpResponse('Invalid input values', status=400)
+    def post(self, request, product_id, *args, **kwargs):
+        product = get_object_or_404(Product, id=product_id)
+        form = CartItemForm(request.POST, product=product)
 
-    referer = request.META.get('HTTP_REFERER', 'order:cart')
-    return redirect(referer)
+        if form.is_valid():
+            form.update_cart_item(request.user)
+        else:
+            return HttpResponse('Invalid input values', status=400)
+
+        referer = request.META.get('HTTP_REFERER', 'order:cart')
+        return redirect(referer)
+    
+    
+
+

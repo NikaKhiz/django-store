@@ -15,7 +15,6 @@ class CartItemForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         quantity = cleaned_data.get('quantity') or 1
-        action = cleaned_data.get('action')
 
         if quantity > self.product.quantity:
             raise ValidationError('not enough products!')
@@ -27,14 +26,11 @@ class CartItemForm(forms.ModelForm):
         quantity = cleaned_data['quantity']
         action = cleaned_data['action']
 
-        cart, _ = Usercart.objects.get_or_create(user=user)
+        cart = Usercart.objects.get(user=user)
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=self.product)
 
         if action == 'add':
-            if created:
-                cart_item.quantity = quantity
-            else:
-                cart_item.quantity += quantity
+            cart_item.quantity += quantity
 
         elif action == 'decrease':
             cart_item.quantity -= quantity
