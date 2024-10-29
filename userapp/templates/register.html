@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-fluid fruite py-5">
+    <div class="container py-5"></div>
+  </div>
+  <div class="container-fluid fruite py-5">
+    <div class="container py-5">
+      <form action="">
+        <label for="username" class="my-3">Username</label>
+        <input type="text"
+               id="username"
+               name="username"
+               class="form-control p-3"
+               placeholder="username">
+        <label for="Email" class="my-3">Email</label>
+        <input type="text"
+               id="Email"
+               name="Email"
+               class="form-control p-3"
+               placeholder="example@gmail.com">
+        <label for="psasword" class="my-3">Password</label>
+        <input type="psasword"
+               id="psasword"
+               name="psasword"
+               class="form-control p-3"
+               placeholder="******">
+        <label for="password_confirmation" class="my-3">Confirm Password</label>
+        <input type="password_confirmation"
+               id="password_confirmation"
+               name="password_confirmation"
+               class="form-control p-3"
+               placeholder="******">
+        <button class="btn border border-secondary rounded-pill px-3 my-3 text-primary">Sign Up</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

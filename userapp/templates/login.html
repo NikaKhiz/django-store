@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-fluid fruite py-5">
+    <div class="container py-5"></div>
+  </div>
+  <div class="container-fluid fruite py-5">
+    <div class="container py-5">
+      <form action="">
+        <label for="username" class="my-3">Username</label>
+        <input type="text"
+               id="username"
+               name="username"
+               class="form-control p-3"
+               placeholder="username">
+        <label for="psasword" class="my-3">Password</label>
+        <input type="psasword"
+               id="psasword"
+               name="psasword"
+               class="form-control p-3"
+               placeholder="******">
+        <button class="btn border border-secondary rounded-pill px-3 text-primary my-3">Log In</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}
