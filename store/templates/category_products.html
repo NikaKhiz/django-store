@@ -17,7 +17,7 @@
                   aria-label="Close"></button>
         </div>
         <form id="search_form"
-              method="POST"
+              method="GET"
               action="."
               class="modal-body d-flex align-items-center">
           {% csrf_token %}
@@ -27,7 +27,7 @@
                    name="product_name"
                    class="form-control p-3"
                    placeholder="product name"
-                   value="{{ request.POST.product_name|default:'' }}">
+                   value="{{ request.GET.product_name|default:'' }}">
           </div>
         </form>
       </div>
@@ -53,11 +53,7 @@
   </div>
   <!-- Single Page Header End -->
   <!-- Fruits Shop Start-->
-  <form id="form"
-        method="POST"
-        action="."
-        class="container-fluid fruite py-5">
-    {% csrf_token %}
+  <div class="container-fluid fruite py-5">
     <div class="container py-5">
       <h1 class="mb-4">Fresh Fruits Shop</h1>
       <div class="row g-4">
@@ -70,7 +66,8 @@
                        name="product_name"
                        class="form-control p-3"
                        placeholder="Product Name"
-                       value="{{ request.POST.product_name|default:'' }}">
+                       value="{{ request.GET.product_name|default:'' }}"
+                       form="products-form">
               </div>
             </div>
             <div class="col-6"></div>
@@ -79,23 +76,20 @@
                 <label for="product_sort_list">Sort By:</label>
                 <select id="product_sort_list"
                         name="product_sort_list"
-                        class="border-0 form-select-sm bg-light me-3">
+                        class="border-0 form-select-sm bg-light me-3"
+                        form="products-form">
                   <option value="price_up"
-                          {% if request.POST.product_sort_list == 'price_up' %}selected{% endif %}>Price Up</option>
+                          {% if request.GET.product_sort_list == 'price_up' %}selected{% endif %}>Price Up</option>
                   <option value="price_down"
-                          {% if request.POST.product_sort_list == 'price_down' %}selected{% endif %}>
-                    Price Down
-                  </option>
+                          {% if request.GET.product_sort_list == 'price_down' %}selected{% endif %}>Price Down</option>
                   <option value="created_at"
-                          {% if request.POST.product_sort_list == 'created_at' %}selected{% endif %}>
-                    Created at
-                  </option>
+                          {% if request.GET.product_sort_list == 'created_at' %}selected{% endif %}>Created at</option>
                 </select>
               </div>
             </div>
           </div>
           <div class="row g-4">
-            <div class="col-lg-3">
+            <form action="." method="GET" class="col-lg-3" id="products-form">
               <div class="row g-4">
                 <div class="col-lg-12">
                   <div class="mb-3">
@@ -121,9 +115,10 @@
                            name="product_price"
                            min="5"
                            max="500"
-                           value="{{ request.POST.product_price|default:5 }}"
-                           oninput="document.getElementById('product_price_value').textContent = this.value">
-                    <output id="product_price_value">{{ request.POST.product_price|default:5 }}</output>
+                           value="{{ request.GET.product_price|default:5 }}"
+                           oninput="document.getElementById('product_price_value').textContent = this.value"
+                           form="products-form">
+                    <output name="product_price" form="products-form" id="product_price_value">{{ request.GET.product_price|default:5 }}</output>
                   </div>
                 </div>
                 <div class="col-lg-12">
@@ -136,7 +131,8 @@
                                id="product_tag_{{ tag.name }}"
                                name="product_tag"
                                value="{{ tag.name }}"
-                               {% if request.POST.product_tag == tag.name %}checked{% endif %}>
+                               {% if request.GET.product_tag == tag.name %}checked{% endif %}
+                               form="products-form">
                         <label for="product_tag_{{ tag.name }}">{{ tag.name }}</label>
                       </div>
                     {% endfor %}
@@ -148,7 +144,7 @@
                          value="Filter">
                 </div>
               </div>
-            </div>
+            </form>
             <div class="col-lg-9">
               <div class="row g-4 justify-content-center">
                 {% for product in products %}
@@ -157,21 +153,26 @@
                 <div class="col-12">
                   <div class="pagination d-flex justify-content-center mt-5">
                     {% if page_obj.has_previous %}
-                      <a href="?page=1" class="rounded">&laquo; First</a>
-                      <a href="?page={{ page_obj.previous_page_number }}" class="rounded">Previous</a>
+                      <a href="?page=1&{{ copied_url.urlencode }}" class="rounded">&laquo; First</a>
+                      <a href="?page={{ page_obj.previous_page_number }}&{{ copied_url.urlencode }}"
+                         class="rounded">Previous</a>
                     {% endif %}
                     {% for page_num in get_elided_page_range %}
                       {% if page_obj.number == page_num %}
-                        <a href="?page={{ page_num }}" class="active rounded">{{ page_num }}</a>
+                        <a href="?page={{ page_num }}&{{ copied_url.urlencode }}"
+                           class="active rounded">{{ page_num }}</a>
                       {% elif page_num == '...' %}
                         <span class="rounded">...</span>
                       {% else %}
-                        <a href="?page={{ page_num }}" class="rounded">{{ page_num }}</a>
+                        <a href="?page={{ page_num }}&{{ copied_url.urlencode }}"
+                           class="rounded">{{ page_num }}</a>
                       {% endif %}
                     {% endfor %}
                     {% if page_obj.has_next %}
-                      <a href="?page={{ page_obj.next_page_number }}" class="rounded">Next</a>
-                      <a href="?page={{ page_obj.num_pages }}" class="rounded">Last &raquo;</a>
+                      <a href="?page={{ page_obj.next_page_number }}&{{ copied_url.urlencode }}"
+                         class="rounded">Next</a>
+                      <a href="?page={{ paginator.num_pages }}&{{ copied_url.urlencode }}"
+                         class="rounded">Last &raquo;</a>
                     {% endif %}
                   </div>
                 </div>
@@ -181,6 +182,6 @@
         </div>
       </div>
     </div>
-  </form>
+  </div>
   <!-- Fruits Shop End-->
 {% endblock content %}

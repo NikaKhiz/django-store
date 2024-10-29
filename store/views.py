@@ -1,5 +1,5 @@
 from .models import Category, Product, ProductTag
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.views.generic import ListView
 from django.db.models import Count
 from store.forms import ProductForm
@@ -19,11 +19,12 @@ class Indexview (View):
 
         return render(request, 'index.html', context)
 
+
 class CategoryProductsView(ListView):
     model = Product
     template_name = 'category_products.html'
     context_object_name = 'products'
-    paginate_by = 1  
+    paginate_by = 3 
 
     def get_queryset(self):
         slug = self.kwargs.get('slug')
@@ -49,17 +50,24 @@ class CategoryProductsView(ListView):
             self.request.GET.get(self.page_kwarg, 1)
             )
 
+        # pass modified url to context for preserve filters on page switches
+        get_url_copy = self.request.GET.copy()
+        if get_url_copy.get('page'):
+            get_url_copy.pop('page')
+        context['copied_url'] = get_url_copy
+
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = ProductForm(request.POST)
+    def get(self, request, *args, **kwargs):
+        form = ProductForm(request.GET)
         if form.is_valid():
-            product_name = request.POST.get('product_name')
-            product_price = request.POST.get('product_price')
-            tag = request.POST.get('product_tag')
-            sort_option = request.POST.get('sort_list')
-            
             queryset = self.get_queryset()
+
+            product_name = form.cleaned_data['product_name']
+            product_price = form.cleaned_data['product_price']
+            tag = form.cleaned_data['product_tag']
+            sort_option = form.cleaned_data['product_sort_list']
+
             if product_name:
                 queryset = queryset.filter(name__icontains=product_name)
             if product_price:
@@ -78,7 +86,8 @@ class CategoryProductsView(ListView):
             context = self.get_context_data()
             return self.render_to_response(context)
 
-        return self.get(request, *args, **kwargs)
+        else:
+            return HttpResponse('form validation error', 400)
 
 
 # Product detailed page
