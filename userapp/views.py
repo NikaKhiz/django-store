@@ -1,13 +1,14 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
+from django.urls import reverse_lazy
 from .forms import RegisterForm
 
 
 class RegisterUserView(CreateView):
     form_class = RegisterForm
     template_name = 'register.html'
-    next_page = 'store:index'
+    success_url = reverse_lazy('store:index')
 
    
 class LoginUserView(LoginView):
