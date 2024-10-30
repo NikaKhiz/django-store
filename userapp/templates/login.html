@@ -5,19 +5,23 @@
   </div>
   <div class="container-fluid fruite py-5">
     <div class="container py-5">
-      <form action="">
+      <form action="{% url "user:login" %}" method="POST">
+        {% csrf_token %}
         <label for="username" class="my-3">Username</label>
         <input type="text"
                id="username"
                name="username"
                class="form-control p-3"
                placeholder="username">
-        <label for="psasword" class="my-3">Password</label>
-        <input type="psasword"
-               id="psasword"
-               name="psasword"
+        {% include "partials/error.html" with field_errors=form.username.errors %}
+        <label for="password" class="my-3">Password</label>
+        <input type="password"
+               id="password"
+               name="password"
                class="form-control p-3"
                placeholder="******">
+        {% include "partials/error.html" with field_errors=form.password.errors %}
+        {% include "partials/error.html" with field_errors=form.non_field_errors %}
         <button class="btn border border-secondary rounded-pill px-3 text-primary my-3">Log In</button>
       </form>
     </div>
