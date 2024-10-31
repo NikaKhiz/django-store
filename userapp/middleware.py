@@ -10,8 +10,7 @@ class UpdateUserLastActionMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             now = make_aware(datetime.now())  
             request.user.last_active_datetime = now
-            if not request.user.is_superuser:
-                request.user.should_logout = True
+            request.user.should_logout = True
             request.user.save(update_fields=['last_active_datetime', 'should_logout'])
 
 
