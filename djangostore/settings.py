@@ -144,3 +144,5 @@ INTERNAL_IPS = [
 ]   
 
 AUTH_USER_MODEL = "userapp.CustomUser"
+
+LOGIN_URL= '/user/login'
