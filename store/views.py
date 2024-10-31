@@ -42,7 +42,6 @@ class CategoryProductsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['root_categories'] = Category.objects.filter(parent__isnull=True)
         context['categories'] = self.categories
         context['slug'] = self.kwargs.get('slug')
         context['tags'] = ProductTag.objects.all().distinct()
