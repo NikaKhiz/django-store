@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from store.models import Product
 from .forms import CartItemForm
 from .models import Usercart
@@ -11,7 +10,6 @@ from django.views.generic import RedirectView
 
 # parent view for cart and checkout views
 class BaseCartView(LoginRequiredMixin, View):
-    login_url ='/admin'
     shipping_cost = 3 
 
     def get_cart_context(self, request):
@@ -49,7 +47,6 @@ class OrderShowView(BaseCartView):
 
 
 class CartActionsView(LoginRequiredMixin,RedirectView):
-    login_url='/admin'
 
     def post(self, request, product_id, *args, **kwargs):
         product = get_object_or_404(Product, id=product_id)
