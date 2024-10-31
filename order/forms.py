@@ -30,7 +30,10 @@ class CartItemForm(forms.ModelForm):
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=self.product)
 
         if action == 'add':
-            cart_item.quantity += quantity
+            if created:
+                cart_item.quantity = quantity
+            else:
+                cart_item.quantity += quantity
 
         elif action == 'decrease':
             cart_item.quantity -= quantity

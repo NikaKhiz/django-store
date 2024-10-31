@@ -2,6 +2,8 @@
       method="POST"
       class="col-md-6 col-lg-6 col-xl-4">
   {% csrf_token %}
+  <input type="hidden" name="action" value='add'>
+  <input type="hidden" name="quantity" value='1'>
   <div class="rounded position-relative fruite-item">
     <div class="fruite-img">
       <img src="{{ product.image.url }}"
