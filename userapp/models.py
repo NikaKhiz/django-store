@@ -40,6 +40,7 @@ class CustomUser(AbstractUser):
     
     username=models.CharField(max_length=40,unique=True)
     last_active_datetime = models.DateTimeField(auto_now=True)
+    should_logout = models.BooleanField(default=True)
     email=models.EmailField(max_length=255,unique=True)
 
     def __str__(self):
