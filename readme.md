@@ -1,20 +1,25 @@
 # DjangoStore
 
-<p>Application that will give users opportunities to take a look of listed products, see detailed information about specific items, purchase items, see order information and many more.
-</p>
+<p>DjangoStore is an application that gives users opportunities to create orders from listed products on our site</p>
+<p>site has user registration and authorization features.</p>
+<p>after successful registration and authorization user can choose one of the products, add it in to the cart and then order from our store.</p>
+
+### there are next links on our site
 
 1. **localhost/ main page.**
 2. **localhost/category/category_slug/ lists products corresponding to category.**
-<p>if no slug presents, default value is passed</p>
-
 3. **localhost/product/product_slug/ product detailed page.**
-<p>if no slug presents, default value is passed</p>
-
 4. **localhost/contact/ contact page.**
 5. **localhost/order/cart displays cart page.**
 6. **localhost/order/checkout/ displays checkout page.**
+7. **localhost/user/register/ for handling registration.**
+8. **localhost/user/login/ for handling user authorization.**
+9. **localhost/user/logout/ for handling user logout process.**
 
-<p>Site has superuser (user:admin, pass:admin123). you can visit localhost/admin and log in to dashboard.</p>
+## you can either log in using django admin or from the site login form.
+
+<p>Site has superuser (user:admin, pass:admin123).</p>
+<p>Site also has testuser (user:testuser, pass:passfortestuser).</p>
 
 ### Table of Contents
 
