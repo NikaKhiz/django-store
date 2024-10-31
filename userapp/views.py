@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import RegisterForm
+from django.shortcuts import redirect
 
 
 class RegisterUserView(CreateView):
@@ -17,10 +18,15 @@ class RegisterUserView(CreateView):
         form.save()
         return super().form_valid(form)
 
-   
+
 class LoginUserView(LoginView):
     template_name='login.html'
     next_page = 'store:index'
+    def get(self, request, *args, **kwargs):
+        # Check if the user is authenticated
+        if request.user.is_authenticated:
+            return redirect(self.get_success_url())
+        return super().get(self, request, *args, **kwargs)
 
 
 class LogoutUserView(LoginRequiredMixin, LogoutView):
