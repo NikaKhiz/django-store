@@ -6,25 +6,24 @@ from django.shortcuts import redirect
 
 
 class UpdateUserLastActionMiddleware(MiddlewareMixin):
-    def process_request(self, request):
+    def process_response(self, request, response):
         if request.user.is_authenticated:
             now = make_aware(datetime.now())  
             request.user.last_active_datetime = now
-            request.user.should_logout = True
-            request.user.save(update_fields=['last_active_datetime', 'should_logout'])
+            request.user.save(update_fields=['last_active_datetime'])
 
+        return response
+    
 
 class UserActivityCheckMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if request.user.is_authenticated:
             now = make_aware(datetime.now())
             last_active = request.user.last_active_datetime
-            should_logout = request.user.should_logout == True
             
-            if (now - last_active).total_seconds() > 60 and should_logout:
+            if (now - last_active).total_seconds() > 3:
                 request.user.last_active_datetime = now
-                request.user.should_logout = False
-                request.user.save(update_fields=['last_active_datetime', 'should_logout'])
+                request.user.save(update_fields=['last_active_datetime'])
                 logout(request)  
 
                 return redirect('store:index')  
