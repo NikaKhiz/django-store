@@ -149,3 +149,12 @@ INTERNAL_IPS = [
 AUTH_USER_MODEL = "userapp.CustomUser"
 
 LOGIN_URL= '/user/login'
+
+
+# cache
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
