@@ -5,15 +5,26 @@ from django.db.models import Count
 from store.forms import ProductForm
 from django.views import View
 from django.views.generic import DetailView
-
+from django.core.cache import cache
 
 class Indexview (View):
 
     def get(self, request):
-        root_categories = Category.objects.filter(parent__isnull=True)
-        categories = root_categories.get_descendants(include_self=True)
+        
+        root_categories = cache.get('root_categories_cache')
+        if root_categories is None:
+            root_categories = Category.objects.filter(parent__isnull=True)
+            cache.set('root_categories_cache', root_categories, 60 * 1)
 
-        products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
+        categories = cache.get('categories_cache')
+        if categories is None:
+            categories = root_categories.get_descendants(include_self=True)
+            cache.set('categories_cache', categories, 60 * 1)
+
+        products = cache.get('products_cache')
+        if products is None:
+            products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
+            cache.set('products_cache', products, 60 * 1)
 
         context = {'root_categories': root_categories,'categories': categories, 'products': products}
 
