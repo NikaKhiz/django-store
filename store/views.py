@@ -38,16 +38,29 @@ class CategoryProductsView(ListView):
     paginate_by = 3 
 
     def get_queryset(self):
+
         slug = self.kwargs.get('slug')
-        root_categories = Category.objects.filter(parent__isnull=True)
+        root_categories = cache.get('root_categories_cache')
+        if root_categories is None:
+            root_categories = Category.objects.filter(parent__isnull=True)
+            cache.set('root_categories_cache', root_categories, 60 * 1)
 
         if slug:
             selected_category = get_object_or_404(Category, slug=slug)
-            products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
+            
+            products = cache.get('products_selected_category_cache')
+            if products is None:
+                products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
+                cache.set('products_selected_category_cache', products, 60 * 1)
+
             self.categories = selected_category.get_children().annotate(product_count=Count('products'))
         else:
             self.categories = root_categories.annotate(product_count=Count('products'))
-            products = Product.objects.filter(category__in=self.categories).distinct().prefetch_related('tag')
+            
+            products = cache.get('products_cache')
+            if products is None:
+                products = Product.objects.filter(category__in=self.categories).distinct().prefetch_related('tag')
+                cache.set('products_cache', products, 60 * 1)
 
         return products
 
