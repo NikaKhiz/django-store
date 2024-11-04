@@ -1,7 +1,7 @@
 # DjangoStore
 
 <p>DjangoStore is an application that gives users opportunities to create orders from listed products on our site</p>
-<p>site has user registration and authorization features.</p>
+<p>site has user registration and authorization features. also visitor can send messages from contact page.</p>
 <p>after successful registration and authorization user can choose one of the products, add it in to the cart and then order from our store.</p>
 
 ### there are next links on our site
@@ -20,6 +20,8 @@
 
 <p>Site has superuser (user:admin, pass:admin123).</p>
 <p>Site also has testuser (user:testuser, pass:passfortestuser).</p>
+
+##### Notice: newly created users has no ability to do anything from admin dashboard. login as admin and give them visitor status to be able to see products and categories.
 
 ### Table of Contents
 
