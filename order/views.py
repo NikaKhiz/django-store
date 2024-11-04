@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from store.models import Product
 from .forms import CartItemForm
-from .models import Usercart
+from .models import UserCart
 from django.db.models import F
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,7 +13,7 @@ class BaseCartView(LoginRequiredMixin, View):
     shipping_cost = 3 
 
     def get_cart_context(self, request):
-        cart = Usercart.objects.get(user=request.user)
+        cart = UserCart.objects.get(user=request.user)
         cart_items = cart.cart_items.annotate(total_price=F('product__price') * F('quantity'))
 
         subtotal = sum(item.total_price for item in cart_items)

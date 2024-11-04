@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Usercart(models.Model):
+class UserCart(models.Model):
     user = models.OneToOneField("userapp.CustomUser", on_delete=models.CASCADE, related_name='cart')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -13,7 +13,7 @@ class Usercart(models.Model):
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey('order.Usercart', on_delete=models.CASCADE, related_name='cart_items')
+    cart = models.ForeignKey('order.UserCart', on_delete=models.CASCADE, related_name='cart_items')
     product = models.ForeignKey('store.Product', on_delete=models.CASCADE, related_name='cart_products')
     quantity = models.PositiveIntegerField(default=1, null=False, blank=True)
     action = models.CharField(max_length=255, blank=True, null=True)

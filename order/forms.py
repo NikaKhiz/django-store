@@ -1,5 +1,5 @@
 from django import forms
-from .models import CartItem, Usercart
+from .models import CartItem, UserCart
 from django.core.exceptions import ValidationError 
 
 class CartItemForm(forms.ModelForm):
@@ -26,7 +26,7 @@ class CartItemForm(forms.ModelForm):
         quantity = cleaned_data['quantity']
         action = cleaned_data['action']
 
-        cart = Usercart.objects.get(user=user)
+        cart = UserCart.objects.get(user=user)
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=self.product)
 
         if action == 'add':
