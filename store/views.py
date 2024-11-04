@@ -52,12 +52,7 @@ class CategoryProductsView(ListView):
 
         if slug:
             selected_category = get_object_or_404(Category, slug=slug)
-            
-            products = cache.get('products_selected_category_cache')
-            if products is None:
-                products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
-                cache.set('products_selected_category_cache', products, 60 * 1)
-
+            products = Product.objects.filter(category=selected_category).distinct().prefetch_related('tag')
             self.categories = selected_category.get_children().annotate(product_count=Count('products'))
         else:
             self.categories = root_categories.annotate(product_count=Count('products'))
