@@ -1,11 +1,16 @@
 from .models import Category, Product, ProductTag
 from django.shortcuts import render, get_object_or_404, HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, FormView
 from django.db.models import Count
-from store.forms import ProductForm
+from store.forms import ProductForm, SendEmailForm
 from django.views import View
-from django.views.generic import DetailView
 from django.core.cache import cache
+from django.core import mail
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from userapp.models import CustomUser
+from django.contrib import messages
+
 
 class Indexview (View):
 
@@ -127,3 +132,27 @@ class ProductView(DetailView):
 
         return context
     
+
+class ContactsView(FormView):
+    success_url = '.'
+    template_name = 'contacts.html'
+    form_class = SendEmailForm
+
+    #if submitted data is valid, send email and redirect to main page.
+    def form_valid(self, form):
+        cleaned_data = form.cleaned_data
+        admin_users = CustomUser.objects.filter(is_superuser=True)
+        admin_emails = admin_users.values_list('email', flat=True)
+
+        try:
+            mail.send_mail(
+                'New user sent message.',
+                cleaned_data.get('message'),
+                cleaned_data.get('email'),
+                admin_emails
+            )
+            messages.success(self.request, 'Your message has been sent succesfully! :)')
+        except mail.BadHeaderError:
+            return HttpResponse("Invalid header found.")
+        
+        return super().form_valid(form)

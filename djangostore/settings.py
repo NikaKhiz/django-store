@@ -151,10 +151,16 @@ AUTH_USER_MODEL = "userapp.CustomUser"
 LOGIN_URL= '/user/login'
 
 
-# cache
+
+
+# cache backend settings for local development
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         "LOCATION": "unique-snowflake",
     }
 }
+
+
+# email backend settings for local development 
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"

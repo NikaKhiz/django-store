@@ -10,3 +10,8 @@ class ProductForm(forms.Form):
         ('created_at', 'Created At'),
     ], required=False)
 
+
+class SendEmailForm(forms.Form):
+    name = forms.CharField(max_length=255, required=True)
+    email = forms.EmailField(required=True)
+    message = forms.CharField(min_length=20, required=True)
