@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 08:28+0000\n"
+"POT-Creation-Date: 2024-11-07 09:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "მომხმარებლის კალატა"
 msgid "user carts"
 msgstr "მომხმარებლების კალათა"
 
-#: store/admin.py:60
+#: store/admin.py:61
 msgid "total price"
 msgstr "ფასი ჯამი"
 
@@ -117,6 +117,20 @@ msgstr "პროდუქტის ტეგი"
 #: store/models.py:54
 msgid "produtc tags"
 msgstr "პროდუქტის ტეგები"
+
+#: userapp/models.py:42
+#, fuzzy
+#| msgid "name"
+msgid "username"
+msgstr "სახელი"
+
+#: userapp/models.py:43
+msgid "last active datetime"
+msgstr "უკანასკნელი აქტიური სტატუსი"
+
+#: userapp/models.py:44
+msgid "email"
+msgstr "მეილი"
 
 #: venv/lib/python3.10/site-packages/admin_auto_filters/templates/django-admin-autocomplete-filter/autocomplete-filter.html:3
 #, python-format

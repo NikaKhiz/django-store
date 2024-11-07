@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -38,10 +39,9 @@ class CustomUser(AbstractUser):
         user.save(using=self._db)
         return user
     
-    username=models.CharField(max_length=40,unique=True)
-    last_active_datetime = models.DateTimeField(auto_now=True)
-    should_logout = models.BooleanField(default=True)
-    email=models.EmailField(max_length=255,unique=True)
+    username=models.CharField(max_length=40,unique=True, verbose_name=_('username'))
+    last_active_datetime = models.DateTimeField(auto_now=True, verbose_name=_('last active datetime'))
+    email=models.EmailField(max_length=255,unique=True, verbose_name=_('email'))
 
     def __str__(self):
         return self.username
