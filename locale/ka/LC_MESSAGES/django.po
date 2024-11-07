@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 10:02+0000\n"
+"POT-Creation-Date: 2024-11-07 10:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,6 +117,26 @@ msgstr "პროდუქტის ტეგი"
 #: store/models.py:54
 msgid "produtc tags"
 msgstr "პროდუქტის ტეგები"
+
+#: templates/partials/nav.html:32
+msgid "Home"
+msgstr "მთავარი გვერდი"
+
+#: templates/partials/nav.html:33
+msgid "Shop"
+msgstr "მაღაზია"
+
+#: templates/partials/nav.html:35
+msgid "Category"
+msgstr "კატეგორია"
+
+#: templates/partials/nav.html:44
+msgid "no categories"
+msgstr "არ არის კატეგორიები"
+
+#: templates/partials/nav.html:48
+msgid "Contacts"
+msgstr "კონტაქტი"
 
 #: userapp/models.py:42
 #, fuzzy
@@ -1674,3 +1694,6 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/modeltranslation/widgets.py:32
 msgid "None"
 msgstr ""
+
+#~ msgid "Pages"
+#~ msgstr "კატეგორიები"

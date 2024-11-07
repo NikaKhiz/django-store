@@ -1,4 +1,5 @@
 {% load cache %}
+{% load i18n %}
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
   <div class="container topbar bg-primary d-none d-lg-block">
@@ -28,19 +29,23 @@
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
         {% cache 60 navigation %}
         <div class="navbar-nav mx-auto">
-          <a href="{% url "store:index" %}" class="nav-item nav-link active">Home</a>
-          <a href="{% url "store:products" %}" class="nav-item nav-link">Shop</a>
+          <a href="{% url "store:index" %}" class="nav-item nav-link active">{% trans "Home" %}</a>
+          <a href="{% url "store:products" %}" class="nav-item nav-link">{% trans "Shop" %}</a>
           <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{% trans "Category" %}</a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-              {% for category in root_categories %}
-                {% if category.parent is None %}
-                  <a href="{% url "store:products" category.slug %}" class='dropdown-item'>{{ category.name }}</a>
-                {% endif %}
-              {% endfor %}
+              {% if root_categories %}
+                {% for category in root_categories %}
+                  {% if category.parent is None %}
+                    <a href="{% url "store:products" category.slug %}" class='dropdown-item'>{{ category.name }}</a>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <p class='nav-item nav-link'>{% trans "no categories" %}</p>
+              {% endif %}
             </div>
           </div>
-          <a href="{% url "store:contacts" %}" class="nav-item nav-link">Contacts</a>
+          <a href="{% url "store:contacts" %}" class="nav-item nav-link">{% trans "Contacts" %}</a>
         </div>
       {% endcache %}
       <div class="d-flex m-3 me-0">
