@@ -21,7 +21,7 @@ class UserActivityCheckMiddleware(MiddlewareMixin):
             now = make_aware(datetime.now())
             last_active = request.user.last_active_datetime
             
-            if (now - last_active).total_seconds() > 10000:
+            if (now - last_active).total_seconds() > 60:
                 request.user.last_active_datetime = now
                 request.user.save(update_fields=['last_active_datetime'])
                 logout(request)  
