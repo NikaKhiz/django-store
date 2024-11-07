@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from userapp.models import CustomUser
 from django.contrib import messages
-
+from .utils import get_top_rated_product
 
 class Indexview (View):
 
@@ -28,7 +28,7 @@ class Indexview (View):
 
         products = cache.get('products_cache')
         if products is None:
-            products = Product.objects.filter(category__in=categories).distinct().prefetch_related('tag')
+            products = get_top_rated_product(limit=5).order_by('-price')
             cache.set('products_cache', products, 60 * 1)
 
         context = {'root_categories': root_categories,'categories': categories, 'products': products}
