@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Category, Product, ProductTag
 from admin_auto_filters.filters import AutocompleteFilter
+from django.utils.translation import gettext_lazy as _
 
 
 class CategoryFilter(AutocompleteFilter):
@@ -56,7 +57,7 @@ class ProductAdmin(admin.ModelAdmin):
         }),
     )
 
-    @admin.display
+    @admin.display(description=_('total price'))
     def total_prices(self, obj):
         return obj.price * obj.quantity
     
@@ -64,7 +65,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductTag)
 class ProductTagAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'updated_at', 'created_at')
     search_fields = ('name',)
     ordering = ('name', )
     date_hierarchy = 'updated_at'

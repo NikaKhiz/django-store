@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 06:18+0000\n"
+"POT-Creation-Date: 2024-11-07 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,13 +22,93 @@ msgstr ""
 msgid "cart user"
 msgstr "მომხმარებლის კალათა"
 
-#: order/models.py:6
+#: order/models.py:6 store/models.py:12 store/models.py:37 store/models.py:50
 msgid "date creation"
 msgstr "შექმნის თარიღი"
 
-#: order/models.py:7
+#: order/models.py:7 store/models.py:11 store/models.py:36 store/models.py:49
 msgid "date update"
 msgstr "განახლების თარიღი"
+
+#: store/admin.py:60
+msgid "total price"
+msgstr "ფასი ჯამი"
+
+#: store/models.py:6 store/models.py:23 store/models.py:48
+msgid "name"
+msgstr "სახელი"
+
+#: store/models.py:7 store/models.py:24
+msgid "slug"
+msgstr "სლაგი"
+
+#: store/models.py:8
+msgid "parent"
+msgstr "მშობელი კატეგორია"
+
+#: store/models.py:9 store/models.py:25
+msgid "description"
+msgstr "აღწერა"
+
+#: store/models.py:10 store/models.py:33
+msgid "image"
+msgstr "სურათი"
+
+#: store/models.py:15 store/models.py:34
+msgid "category"
+msgstr "კატეგორია"
+
+#: store/models.py:16
+msgid "categories"
+msgstr "კატეგორიები"
+
+#: store/models.py:26
+msgid "price"
+msgstr "ფასი"
+
+#: store/models.py:27
+msgid "quantity"
+msgstr "რაოდენობა"
+
+#: store/models.py:28
+msgid "weight"
+msgstr "წონა"
+
+#: store/models.py:29
+msgid "origin"
+msgstr "წარმომავლობა"
+
+#: store/models.py:30
+msgid "quality"
+msgstr "ხარისხი"
+
+#: store/models.py:31
+msgid "healthy"
+msgstr "ჯანსაღი"
+
+#: store/models.py:32
+msgid "is published"
+msgstr "გამოქვეყნებულია"
+
+#: store/models.py:35
+msgid "tag"
+msgstr "პროდუქტის ტეგი"
+
+#: store/models.py:40
+msgid "product"
+msgstr "პროდუქტი"
+
+#: store/models.py:41
+msgid "products"
+msgstr "პროდუქტები"
+
+#: store/models.py:53
+msgid "product tag"
+msgstr "პროდუქტის ტეგი"
+
+#: store/models.py:54
+msgid "produtc tags"
+msgstr "პროდუქტის ტეგები"
 
 #: venv/lib/python3.10/site-packages/admin_auto_filters/templates/django-admin-autocomplete-filter/autocomplete-filter.html:3
 #, python-format
