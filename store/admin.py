@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Category, Product, ProductTag
 from admin_auto_filters.filters import AutocompleteFilter
 from django.utils.translation import gettext_lazy as _
+from modeltranslation.admin import TabbedTranslationAdmin
 
 
 class CategoryFilter(AutocompleteFilter):
@@ -9,7 +10,7 @@ class CategoryFilter(AutocompleteFilter):
     field_name = 'parent' 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'parent', 'created_at', 'updated_at')
     search_fields = ('name',)
     list_filter = [CategoryFilter]
@@ -35,7 +36,7 @@ class ProductFilterByTag(AutocompleteFilter):
     field_name = 'tag' 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'price', 'quantity', 'total_prices', 'quality', 'origin', 'weight', 'healthy', 'is_published', 'created_at', 'updated_at')
     search_fields = ('name', 'slug',)
     list_filter = [ProductFilterByCategory, ProductFilterByTag, 'is_published', 'healthy']
@@ -64,7 +65,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProductTag)
-class ProductTagAdmin(admin.ModelAdmin):
+class ProductTagAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'updated_at', 'created_at')
     search_fields = ('name',)
     ordering = ('name', )
@@ -73,6 +74,6 @@ class ProductTagAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name',)
+            'fields': ('name', )
         }),
     )
