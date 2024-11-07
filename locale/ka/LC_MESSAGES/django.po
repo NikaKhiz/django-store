@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 10:12+0000\n"
+"POT-Creation-Date: 2024-11-07 10:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,13 +118,79 @@ msgstr "პროდუქტის ტეგი"
 msgid "produtc tags"
 msgstr "პროდუქტის ტეგები"
 
-#: templates/partials/nav.html:32
+#: store/templates/category_products.html:30
+#: store/templates/category_products.html:69
+msgid "product name"
+msgstr "პროდუქტის სახელი"
+
+#: store/templates/category_products.html:40
+#: store/templates/category_products.html:46 templates/partials/nav.html:33
+msgid "Shop"
+msgstr "მაღაზია"
+
+#: store/templates/category_products.html:43 templates/partials/nav.html:32
 msgid "Home"
 msgstr "მთავარი გვერდი"
 
-#: templates/partials/nav.html:33
-msgid "Shop"
-msgstr "მაღაზია"
+#: store/templates/category_products.html:59
+msgid "Fresh Fruits Shop"
+msgstr "ჯანსაღი პროდუქტების მაღაზია"
+
+#: store/templates/category_products.html:77
+msgid "Sort By"
+msgstr "დამატებითი ფილტრი"
+
+#: store/templates/category_products.html:97 store/templates/product.html:120
+msgid "Categories"
+msgstr "კატეგორიები"
+
+#: store/templates/category_products.html:112
+msgid "Max Price"
+msgstr "მაქსიმალური ფასი"
+
+#: store/templates/category_products.html:127
+msgid "Tags"
+msgstr "პროდუქტის ტეგები"
+
+#: store/templates/category_products.html:145
+msgid "Filter"
+msgstr "ფილტრაცია"
+
+#: store/templates/product.html:43 templates/product_card.html:24
+msgid "Add to cart"
+msgstr "კალათაში დამატება"
+
+#: store/templates/product.html:56
+msgid "Description"
+msgstr "აღწერა"
+
+#: store/templates/product.html:70
+msgid "Weight"
+msgstr "წონა"
+
+#: store/templates/product.html:78
+msgid "Country of Origin"
+msgstr "წარმომავლობა"
+
+#: store/templates/product.html:86
+msgid "Quality"
+msgstr "ხარისხი"
+
+#: store/templates/product.html:94
+msgid "Check"
+msgstr "შემოწმება"
+
+#: store/templates/product.html:102
+msgid "Min Weight"
+msgstr "მინიმალური წონა"
+
+#: templates/index.html:98
+msgid "Our Organic Products"
+msgstr "ჩვენი პროდუქტები"
+
+#: templates/index.html:122
+msgid "Our Client Saying!"
+msgstr "რას ამბობენ ჩვენზე"
 
 #: templates/partials/nav.html:35
 msgid "Category"
@@ -137,6 +203,10 @@ msgstr "არ არის კატეგორიები"
 #: templates/partials/nav.html:48
 msgid "Contacts"
 msgstr "კონტაქტი"
+
+#: templates/product_card.html:28
+msgid "See Product"
+msgstr "გაიგე მეტი"
 
 #: userapp/models.py:42
 #, fuzzy

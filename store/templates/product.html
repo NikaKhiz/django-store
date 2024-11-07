@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% block content %}
   <!-- Single Page Header start -->
   <div class="container-fluid page-header py-5">
@@ -39,7 +40,7 @@
               <p class="mb-4">{{ product.description }}</p>
               <button type="submit"
                       class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
-                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                <i class="fa fa-shopping-bag me-2 text-primary"></i> {% trans "Add to cart" %}
               </button>
             </div>
             <div class="col-lg-12">
@@ -52,7 +53,7 @@
                           data-bs-toggle="tab"
                           data-bs-target="#nav-about"
                           aria-controls="nav-about"
-                          aria-selected="true">Description</button>
+                          aria-selected="true">{% trans "Description" %}</button>
                 </div>
               </nav>
               <div class="tab-content mb-5">
@@ -66,7 +67,7 @@
                       <div class="col-6">
                         <div class="row bg-light align-items-center text-center justify-content-center py-2">
                           <div class="col-6">
-                            <p class="mb-0">Weight</p>
+                            <p class="mb-0">{% trans "Weight" %}</p>
                           </div>
                           <div class="col-6">
                             <p class="mb-0">{{ product.weight }} kg</p>
@@ -74,7 +75,7 @@
                         </div>
                         <div class="row text-center align-items-center justify-content-center py-2">
                           <div class="col-6">
-                            <p class="mb-0">Country of Origin</p>
+                            <p class="mb-0">{% trans "Country of Origin" %}</p>
                           </div>
                           <div class="col-6">
                             <p class="mb-0">{{ product.country_of_origin }}</p>
@@ -82,7 +83,7 @@
                         </div>
                         <div class="row bg-light text-center align-items-center justify-content-center py-2">
                           <div class="col-6">
-                            <p class="mb-0">Quality</p>
+                            <p class="mb-0">{% trans "Quality" %}</p>
                           </div>
                           <div class="col-6">
                             <p class="mb-0">{{ product.quality }}</p>
@@ -90,7 +91,7 @@
                         </div>
                         <div class="row text-center align-items-center justify-content-center py-2">
                           <div class="col-6">
-                            <p class="mb-0">Check</p>
+                            <p class="mb-0">{% trans "Check" %}</p>
                           </div>
                           <div class="col-6">
                             <p class="mb-0">{{ product.check }}</p>
@@ -98,7 +99,7 @@
                         </div>
                         <div class="row bg-light text-center align-items-center justify-content-center py-2">
                           <div class="col-6">
-                            <p class="mb-0">Min Weight</p>
+                            <p class="mb-0">{% trans "Min Weight" %}</p>
                           </div>
                           <div class="col-6">
                             <p class="mb-0">{{ product.min_weight }} Kg</p>
@@ -116,7 +117,7 @@
           <div class="row g-4 fruite">
             <div class="col-lg-12">
               <div class="mb-4">
-                <h4>Categories</h4>
+                <h4>{% trans "Categories" %}</h4>
                 <ul class="list-unstyled fruite-categorie">
                   {% for category in category %}
                     <li>
