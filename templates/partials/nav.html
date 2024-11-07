@@ -27,12 +27,12 @@
         <span class="fa fa-bars text-primary"></span>
       </button>
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-        {% cache 60 navigation %}
         <div class="navbar-nav mx-auto">
           <a href="{% url "store:index" %}" class="nav-item nav-link active">{% trans "Home" %}</a>
           <a href="{% url "store:products" %}" class="nav-item nav-link">{% trans "Shop" %}</a>
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{% trans "Category" %}</a>
+            {% cache 60 navigation %}
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
               {% if root_categories %}
                 {% for category in root_categories %}
@@ -45,9 +45,9 @@
               {% endif %}
             </div>
           </div>
-          <a href="{% url "store:contacts" %}" class="nav-item nav-link">{% trans "Contacts" %}</a>
-        </div>
-      {% endcache %}
+        {% endcache %}
+        <a href="{% url "store:contacts" %}" class="nav-item nav-link">{% trans "Contacts" %}</a>
+      </div>
       <div class="d-flex m-3 me-0">
         <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                 data-bs-toggle="modal"
@@ -104,6 +104,23 @@
             {% endif %}
           </ul>
         </div>
+        <form action="{% url 'set_language' %}" method="POST">
+          {% csrf_token %}
+          <select class="form-control form-control-sm"
+                  id="langformcontrol"
+                  name="language"
+                  onchange="this.form.submit();">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+              <option value="{{ language.code }}"
+                      {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                {{ language.name_local }} ({{ language.code }})
+              </option>
+            {% endfor %}
+          </select>
+        </form>
       </div>
     </div>
   </nav>

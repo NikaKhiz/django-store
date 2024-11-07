@@ -138,6 +138,11 @@ MODELTRANSLATION_FALLBACK_LANGUAGES = ('en',)
 LOCALE_PATHS = [
     BASE_DIR / 'locale'
 ]
+
+
+LANGUAGE_COOKIE_NAME = 'language'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
