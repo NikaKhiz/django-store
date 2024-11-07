@@ -15,7 +15,7 @@ class CategoryAdmin(TabbedTranslationAdmin):
     search_fields = ('name',)
     list_filter = [CategoryFilter]
     ordering = ('name',)
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {'slug': ('name_en',)}
     list_select_related = ('parent',)
     list_editable = ('parent',)
     list_per_page = 10
@@ -41,7 +41,7 @@ class ProductAdmin(TabbedTranslationAdmin):
     search_fields = ('name', 'slug',)
     list_filter = [ProductFilterByCategory, ProductFilterByTag, 'is_published', 'healthy']
     autocomplete_fields = ('category', 'tag')
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {'slug': ('name_en',)}
     ordering = ('-created_at', 'price', 'quantity', 'name')
     date_hierarchy = 'updated_at'
     list_per_page = 10
