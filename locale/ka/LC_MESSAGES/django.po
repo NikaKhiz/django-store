@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 10:47+0000\n"
+"POT-Creation-Date: 2024-11-07 10:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,6 +204,18 @@ msgstr "არ არის კატეგორიები"
 msgid "Contacts"
 msgstr "კონტაქტი"
 
+#: templates/partials/nav.html:90
+msgid "Log Out"
+msgstr "გამოსვლა"
+
+#: templates/partials/nav.html:99 userapp/templates/login.html:26
+msgid "Log In"
+msgstr "შესვლა"
+
+#: templates/partials/nav.html:102 userapp/templates/register.html:40
+msgid "Sign Up"
+msgstr "რეგისტრაცია"
+
 #: templates/product_card.html:28
 msgid "See Product"
 msgstr "გაიგე მეტი"
@@ -230,10 +242,6 @@ msgstr "მომხმარებელი"
 msgid "Password"
 msgstr "პაროლი"
 
-#: userapp/templates/login.html:26
-msgid "Log In"
-msgstr "შესვლა"
-
 #: userapp/templates/register.html:18
 #, fuzzy
 #| msgid "email"
@@ -243,10 +251,6 @@ msgstr "მეილი"
 #: userapp/templates/register.html:32
 msgid "Confirm Password"
 msgstr "გაიმეორეთ პაროლი"
-
-#: userapp/templates/register.html:40
-msgid "Sign Up"
-msgstr "რეგისტრაცია"
 
 #: venv/lib/python3.10/site-packages/admin_auto_filters/templates/django-admin-autocomplete-filter/autocomplete-filter.html:3
 #, python-format
