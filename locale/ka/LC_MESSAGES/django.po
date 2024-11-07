@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 08:22+0000\n"
+"POT-Creation-Date: 2024-11-07 08:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,14 @@ msgstr "შექმნის თარიღი"
 #: order/models.py:7 store/models.py:11 store/models.py:36 store/models.py:49
 msgid "date update"
 msgstr "განახლების თარიღი"
+
+#: order/models.py:14
+msgid "user cart"
+msgstr "მომხმარებლის კალატა"
+
+#: order/models.py:15
+msgid "user carts"
+msgstr "მომხმარებლების კალათა"
 
 #: store/admin.py:60
 msgid "total price"

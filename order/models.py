@@ -10,6 +10,10 @@ class UserCart(models.Model):
     def __str__(self):
         return self.user.username
     
+    class Meta:
+        verbose_name = _('user cart')
+        verbose_name_plural = _('user carts')
+    
 
 
 class CartItem(models.Model):
