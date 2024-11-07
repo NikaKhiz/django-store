@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
   <div class="container-fluid fruite py-5">
     <div class="container py-5"></div>
@@ -7,14 +8,14 @@
     <div class="container py-5">
       <form action="{% url "user:login" %}" method="POST">
         {% csrf_token %}
-        <label for="username" class="my-3">Username</label>
+        <label for="username" class="my-3">{% trans "Username" %}</label>
         <input type="text"
                id="username"
                name="username"
                class="form-control p-3"
                placeholder="username">
         {% include "partials/error.html" with field_errors=form.username.errors %}
-        <label for="password" class="my-3">Password</label>
+        <label for="password" class="my-3">{% trans "Password" %}</label>
         <input type="password"
                id="password"
                name="password"
@@ -22,7 +23,7 @@
                placeholder="******">
         {% include "partials/error.html" with field_errors=form.password.errors %}
         {% include "partials/error.html" with field_errors=form.non_field_errors %}
-        <button class="btn border border-secondary rounded-pill px-3 text-primary my-3">Log In</button>
+        <button class="btn border border-secondary rounded-pill px-3 text-primary my-3">{% trans "Log In" %}</button>
       </form>
     </div>
   </div>

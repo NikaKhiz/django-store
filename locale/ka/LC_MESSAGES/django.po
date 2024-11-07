@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 09:27+0000\n"
+"POT-Creation-Date: 2024-11-07 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,6 +131,32 @@ msgstr "უკანასკნელი აქტიური სტატუ�
 #: userapp/models.py:44
 msgid "email"
 msgstr "მეილი"
+
+#: userapp/templates/login.html:11 userapp/templates/register.html:11
+msgid "Username"
+msgstr "მომხმარებელი"
+
+#: userapp/templates/login.html:18 userapp/templates/register.html:25
+msgid "Password"
+msgstr "პაროლი"
+
+#: userapp/templates/login.html:26
+msgid "Log In"
+msgstr "შესვლა"
+
+#: userapp/templates/register.html:18
+#, fuzzy
+#| msgid "email"
+msgid "Email"
+msgstr "მეილი"
+
+#: userapp/templates/register.html:32
+msgid "Confirm Password"
+msgstr "გაიმეორეთ პაროლი"
+
+#: userapp/templates/register.html:40
+msgid "Sign Up"
+msgstr "რეგისტრაცია"
 
 #: venv/lib/python3.10/site-packages/admin_auto_filters/templates/django-admin-autocomplete-filter/autocomplete-filter.html:3
 #, python-format
@@ -470,7 +496,7 @@ msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/core/validators.py:224
 msgid "Enter a valid email address."
-msgstr ""
+msgstr "შეიყვანეთ ვალიდური იმეილი."
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: venv/lib/python3.10/site-packages/django/core/validators.py:307
@@ -556,7 +582,11 @@ msgid_plural ""
 "Ensure this value has at most %(limit_value)d characters (it has "
 "%(show_value)d)."
 msgstr[0] ""
+"ამ ველის მაქსიმალური ქერექთერის ოდენობა სცდება ლიმიტს. "
+"(ლიმიტი%(show_value)d)."
 msgstr[1] ""
+"ამ ველის მაქსიმალური ქერექთერების ოდენობა სცდება ლიმიტს. "
+"(ლიმიტი%(show_value)d)."
 
 #: venv/lib/python3.10/site-packages/django/core/validators.py:532
 #: venv/lib/python3.10/site-packages/django/forms/fields.py:359
@@ -887,7 +917,7 @@ msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/forms/fields.py:95
 msgid "This field is required."
-msgstr ""
+msgstr "ეს ველი აუცილებელია."
 
 #: venv/lib/python3.10/site-packages/django/forms/fields.py:308
 msgid "Enter a whole number."

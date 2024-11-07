@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
   <div class="container-fluid fruite py-5">
     <div class="container py-5"></div>
@@ -7,28 +8,28 @@
     <div class="container py-5">
       <form action="{% url "user:register" %}" method="POST">
         {% csrf_token %}
-        <label for="username" class="my-3">Username</label>
+        <label for="username" class="my-3">{% trans "Username" %}</label>
         <input type="text"
                id="username"
                name="username"
                class="form-control p-3"
                placeholder="username">
         {% include "partials/error.html" with field_errors=form.username.errors %}
-        <label for="email" class="my-3">Email</label>
+        <label for="email" class="my-3">{% trans "Email" %}</label>
         <input type="text"
                id="email"
                name="email"
                class="form-control p-3"
                placeholder="example@gmail.com">
         {% include "partials/error.html" with field_errors=form.email.errors %}
-        <label for="password1" class="my-3">Password</label>
+        <label for="password1" class="my-3">{% trans "Password" %}</label>
         <input type="password"
                id="password1"
                name="password1"
                class="form-control p-3"
                placeholder="******">
         {% include "partials/error.html" with field_errors=form.password1.errors %}
-        <label for="password2" class="my-3">Confirm Password</label>
+        <label for="password2" class="my-3">{% trans "Confirm Password" %}</label>
         <input type="password"
                id="password2"
                name="password2"
@@ -36,7 +37,7 @@
                placeholder="******">
         {% include "partials/error.html" with field_errors=form.password2.errors %}
         {% include "partials/error.html" with field_errors=form.non_field_errors.errors %}
-        <button class="btn border border-secondary rounded-pill px-3 my-3 text-primary">Sign Up</button>
+        <button class="btn border border-secondary rounded-pill px-3 my-3 text-primary">{% trans "Sign Up" %}</button>
       </form>
     </div>
   </div>
