@@ -1,10 +1,10 @@
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class UserCart(models.Model):
-    user = models.OneToOneField("userapp.CustomUser", on_delete=models.CASCADE, related_name='cart')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    user = models.OneToOneField("userapp.CustomUser", on_delete=models.CASCADE, related_name='cart', verbose_name=_('cart user'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('date creation'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('date update'))
     coupon_code = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
