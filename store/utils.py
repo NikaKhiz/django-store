@@ -13,5 +13,5 @@ def get_top_rated_product(limit):
             [:limit]
         )
     
-    products = Product.objects.filter(id__in=[item['product'] for item in cart_items]).annotate(user_count=Count('cart_products__cart__user'))
+    products = Product.objects.filter(id__in=[item['product'] for item in cart_items]).prefetch_related('tag').annotate(user_count=Count('cart_products__cart__user'))
     return products
